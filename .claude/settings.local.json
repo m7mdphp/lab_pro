@@ -15,7 +15,8 @@
       "Bash(cmd.exe /c \"echo %PATH% & echo --- & winget list php 2>nul & echo done\")",
       "WebFetch(domain:labpro-production-0586.up.railway.app)",
       "Bash(xargs cat:*)",
-      "Bash(wc -l app/Services/Migration/*.php)"
+      "Bash(wc -l app/Services/Migration/*.php)",
+      "Bash(git add:*)"
     ]
   }
 }
