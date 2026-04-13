@@ -12,7 +12,7 @@ const http  = require('http');
 const os    = require('os');
 
 const PORT  = process.env.PORT || 8000;
-const HOST  = '127.0.0.1';
+const HOST  = '0.0.0.0';
 
 const html = `<!DOCTYPE html>
 <html lang="en">
