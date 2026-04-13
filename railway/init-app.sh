@@ -40,4 +40,7 @@ php artisan route:cache
 echo "--> Caching views..."
 php artisan view:cache
 
+echo "--> Creating admin user if none exists..."
+php artisan db:seed --class=AdminSeeder --force --no-interaction
+
 echo "--> Pre-deploy complete."

@@ -18,7 +18,17 @@
       "Bash(wc -l app/Services/Migration/*.php)",
       "Bash(git add:*)",
       "Bash(git commit -m ':*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(composer require:*)",
+      "Bash(where composer:*)",
+      "Read(//usr/local/**)",
+      "Read(//c/ProgramData/ComposerSetup/**)",
+      "Bash(cmd.exe /c \"where php\")",
+      "Bash(cmd.exe /c \"where composer\")",
+      "Bash(powershell.exe -Command \"Get-Command php -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source; Get-Command composer -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source\")",
+      "Bash(powershell.exe -Command \"where.exe php; where.exe composer\")",
+      "Bash(powershell.exe -Command \"Get-ChildItem 'C:\\\\','D:\\\\','E:\\\\' -Recurse -Filter 'php.exe' -ErrorAction SilentlyContinue -Depth 6 | Select-Object -First 5 FullName\")",
+      "Bash(ls *.lock)"
     ]
   }
 }
