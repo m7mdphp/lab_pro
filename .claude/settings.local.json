@@ -16,7 +16,9 @@
       "WebFetch(domain:labpro-production-0586.up.railway.app)",
       "Bash(xargs cat:*)",
       "Bash(wc -l app/Services/Migration/*.php)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(git push:*)"
     ]
   }
 }
