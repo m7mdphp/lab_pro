@@ -1,0 +1,22 @@
+{
+  "packages": {
+    "php": "8.3",
+    "node": "20"
+  },
+  "aptPackages": [
+    "libpng-dev",
+    "libzip-dev",
+    "libonig-dev",
+    "libxml2-dev",
+    "libgd-dev",
+    "libexif-dev",
+    "libcurl4-openssl-dev",
+    "libintl-perl"
+  ],
+  "build": {
+    "cmd": "composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist && npm ci && npm run build"
+  },
+  "start": {
+    "cmd": "php artisan serve --host=0.0.0.0 --port=$PORT"
+  }
+}
