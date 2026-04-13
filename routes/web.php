@@ -33,12 +33,5 @@ $publicRoutes = function () {
 // English — default, no prefix
 Route::middleware('setLocale:en')->group($publicRoutes);
 
-// Explicit /en prefix (redirect to no-prefix equivalents)
-Route::prefix('en')->middleware('setLocale:en')->group(function () {
-    Route::get('/{path?}', function (string $path = '') {
-        return redirect('/' . ltrim($path, '/'), 301);
-    })->where('path', '.*');
-});
-
 // Arabic — /ar prefix
 Route::prefix('ar')->name('ar.')->middleware('setLocale:ar')->group($publicRoutes);
