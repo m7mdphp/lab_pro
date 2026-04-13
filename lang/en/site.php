@@ -15,7 +15,7 @@ return [
 
     'home' => [
         'hero_title'    => 'Accurate Results,<br>Faster Decisions',
-        'hero_subtitle' => 'AccuLab delivers ISO-certified medical laboratory testing with fast turnaround times and home sample collection across Egypt.',
+        'hero_subtitle' => 'El-Sheikha Lab delivers ISO-certified medical laboratory testing with fast turnaround times and home sample collection.',
         'hero_cta'      => 'Book a Test',
         'hero_cta_alt'  => 'Browse Tests',
 
@@ -24,10 +24,10 @@ return [
         'packages_title'      => 'Popular Packages',
         'packages_subtitle'   => 'Bundled tests at special prices',
         'branches_title'      => 'Our Branches',
-        'branches_subtitle'   => 'Conveniently located across Egypt',
+        'branches_subtitle'   => 'Conveniently located near you',
         'faq_title'           => 'Frequently Asked Questions',
 
-        'why_title' => 'Why Choose AccuLab?',
+        'why_title' => 'Why Choose El-Sheikha Lab?',
         'why' => [
             ['icon' => '🏅', 'title' => 'ISO Certified',       'desc' => 'All laboratories hold ISO 15189 accreditation for the highest accuracy standards.'],
             ['icon' => '🏠', 'title' => 'Home Collection',     'desc' => 'Our nurses come to you — no need to visit the lab.'],
@@ -42,12 +42,12 @@ return [
     ],
 
     'about' => [
-        'title'    => 'About AccuLab',
-        'subtitle' => 'Egypt\'s trusted medical laboratory network',
+        'title'    => 'About El-Sheikha Lab',
+        'subtitle' => 'Your trusted medical laboratory',
         'mission_title' => 'Our Mission',
-        'mission'  => 'To provide every Egyptian with access to accurate, affordable, and fast medical laboratory testing — wherever they are.',
+        'mission'  => 'To provide every patient with access to accurate, affordable, and fast medical laboratory testing — wherever they are.',
         'vision_title'  => 'Our Vision',
-        'vision'   => 'To be the most trusted laboratory brand in the Middle East, driven by technology and patient-first care.',
+        'vision'   => 'To be the most trusted laboratory in the region, driven by technology and patient-first care.',
         'values_title'  => 'Our Values',
         'values' => [
             ['icon' => '🎯', 'title' => 'Accuracy',      'desc' => 'We invest in the best equipment and training to ensure every result is correct.'],
@@ -66,7 +66,7 @@ return [
         ],
         'walk_in' => [
             'title' => 'Walk-In Testing',
-            'desc'  => 'Visit any of our 50+ branches across Egypt — no appointment needed.',
+            'desc'  => 'Visit any of our branches — no appointment needed.',
         ],
         'corporate' => [
             'title' => 'Corporate Health Programs',
@@ -103,7 +103,7 @@ return [
 
     'branches' => [
         'title'    => 'Our Branches',
-        'subtitle' => 'Find an AccuLab branch near you across Egypt',
+        'subtitle' => 'Find an El-Sheikha Lab branch near you',
         'phone'    => 'Phone',
         'hours'    => 'Working Hours',
         'map'      => 'View on Map',
@@ -121,7 +121,7 @@ return [
         'send'     => 'Send Message',
         'success'  => 'Your message has been sent. We\'ll be in touch shortly.',
         'info_title' => 'Get in Touch',
-        'address'  => '123 Tahrir Square, Cairo, Egypt',
+        'address'  => 'El-Sheikha Lab, Egypt',
         'hotline'  => 'Hotline',
     ],
 
@@ -141,7 +141,7 @@ return [
     ],
 
     'footer' => [
-        'tagline'     => 'Accurate lab testing across Egypt.',
+        'tagline'     => 'Accurate lab testing you can trust.',
         'quick_links' => 'Quick Links',
         'contact'     => 'Contact',
         'follow'      => 'Follow Us',

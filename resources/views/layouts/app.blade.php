@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'AccuLab') — AccuLab</title>
-    <meta name="description" content="@yield('description', 'AccuLab — Medical laboratory testing across Egypt. ISO-certified results with home sample collection.')">
+    <title>@yield('title', 'El-Sheikha Lab') — معامل الشيخة للتحاليل الطبية</title>
+    <meta name="description" content="@yield('description', 'معامل الشيخة للتحاليل الطبية — El-Sheikha Lab. Medical laboratory testing with accurate results.')">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
