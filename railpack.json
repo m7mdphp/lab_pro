@@ -1,5 +1,11 @@
 {
   "packages": {
     "node": "20"
+  },
+  "build": {
+    "cmd": "composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist && npm ci && npm run build"
+  },
+  "start": {
+    "cmd": "php artisan serve --host=0.0.0.0 --port=$PORT"
   }
 }
