@@ -13,7 +13,9 @@
       "Bash(powershell.exe -Command \"Get-ChildItem 'D:\\\\' -Recurse -Filter 'php.exe' -Depth 5 -ErrorAction SilentlyContinue | Select-Object FullName\")",
       "Bash(cmd.exe /c \"where php 2>nul & dir C:\\\\php.exe /s /b 2>nul & dir D:\\\\php.exe /s /b 2>nul & dir C:\\\\laragon\\\\bin\\\\php /b /s 2>nul & echo done\")",
       "Bash(cmd.exe /c \"echo %PATH% & echo --- & winget list php 2>nul & echo done\")",
-      "WebFetch(domain:labpro-production-0586.up.railway.app)"
+      "WebFetch(domain:labpro-production-0586.up.railway.app)",
+      "Bash(xargs cat:*)",
+      "Bash(wc -l app/Services/Migration/*.php)"
     ]
   }
 }
