@@ -1,0 +1,41 @@
+{
+  "_meta": {
+    "source_url": "https://acculab.org/faq/",
+    "extracted_at": "2026-04-13T10:30:00.000Z",
+    "entity_type": "page",
+    "page_type": "faq",
+    "content_hash": "b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6"
+  },
+  "slug": "faq",
+  "page_type": "faq",
+  "title_en": "Frequently Asked Questions",
+  "content_en": "",
+  "meta_title_en": "FAQ — Common Questions About Our Lab Services",
+  "meta_description_en": "Find answers to common questions about our test packages, booking, results turnaround, and branches.",
+  "faq_items": [
+    {
+      "question": "How do I book a test?",
+      "answer": "You can book online through our website, call our hotline, or visit any of our branches in Nasr City or Maadi.",
+      "question_ar": null,
+      "answer_ar": null
+    },
+    {
+      "question": "How long does it take to receive my results?",
+      "answer": "Most results are ready within 24 hours. Some specialised tests may take 48–72 hours. You will be notified by SMS when your report is ready.",
+      "question_ar": null,
+      "answer_ar": null
+    },
+    {
+      "question": "Do I need to fast before a blood test?",
+      "answer": "Fasting for 8–12 hours is required for glucose, lipid panel, and metabolic tests. Your booking confirmation will specify fasting requirements for your chosen test.",
+      "question_ar": null,
+      "answer_ar": null
+    }
+  ],
+  "branch_data": {},
+  "partners": [],
+  "title_ar": null,
+  "content_ar": null,
+  "meta_title_ar": null,
+  "meta_description_ar": null
+}

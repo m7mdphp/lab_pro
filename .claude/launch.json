@@ -1,0 +1,29 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Laravel Dev Server",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["server.js"],
+      "port": 8000
+    },
+    {
+      "name": "Vite (Frontend HMR)",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["vite-hmr.js"],
+      "port": 5173
+    },
+    {
+      "name": "Laravel Queue Worker",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["queue-worker.js"],
+      "port": 8001
+    },
+    {
+      "name": "Migration Crawl (dry-run)",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["migration-crawl.js"],
+      "port": 8002
+    }
+  ]
+}

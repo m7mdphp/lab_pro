@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:acculab.org)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(where php:*)",
+      "Bash(ls /c/php*)",
+      "Read(//c/Program Files/**)",
+      "Read(//c/Program Files \\(x86\\)/**)",
+      "Read(//c/xampp/php/**)",
+      "Bash(powershell.exe -Command \"Get-Command php -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source; Get-Command php8* -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source; \\(Get-ItemProperty 'HKLM:\\\\SOFTWARE\\\\PHP' -ErrorAction SilentlyContinue\\); \\(Get-ItemProperty 'HKCU:\\\\SOFTWARE\\\\PHP' -ErrorAction SilentlyContinue\\); Get-ChildItem 'C:\\\\','D:\\\\' -Recurse -Filter 'php.exe' -ErrorAction SilentlyContinue -Depth 6 | Select-Object -ExpandProperty FullName\")",
+      "Bash(powershell.exe -Command \"Get-ChildItem 'C:\\\\' -Recurse -Filter 'php.exe' -Depth 5 -ErrorAction SilentlyContinue | Select-Object FullName\")",
+      "Bash(powershell.exe -Command \"Get-ChildItem 'D:\\\\' -Recurse -Filter 'php.exe' -Depth 5 -ErrorAction SilentlyContinue | Select-Object FullName\")",
+      "Bash(cmd.exe /c \"where php 2>nul & dir C:\\\\php.exe /s /b 2>nul & dir D:\\\\php.exe /s /b 2>nul & dir C:\\\\laragon\\\\bin\\\\php /b /s 2>nul & echo done\")",
+      "Bash(cmd.exe /c \"echo %PATH% & echo --- & winget list php 2>nul & echo done\")"
+    ]
+  }
+}

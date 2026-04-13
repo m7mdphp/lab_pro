@@ -1,0 +1,28 @@
+{
+  "_meta": {
+    "source_url": "https://acculab.org/product/complete-blood-count/",
+    "extracted_at": "2026-04-13T10:22:00.000Z",
+    "entity_type": "package",
+    "content_hash": "a3f9e1b2c7d804f5e6a9b10c2d3e4f5a"
+  },
+  "slug": "complete-blood-count",
+  "name_en": "Complete Blood Count (CBC)",
+  "description_en": "<p>A complete blood count (CBC) is a blood test that evaluates the cells in your bloodstream. It measures red blood cells, white blood cells, and platelets to detect a wide range of disorders including anemia, infection, and leukemia.</p><ul><li>Red blood cell (RBC) count</li><li>White blood cell (WBC) count with differential</li><li>Platelet count</li><li>Hemoglobin</li><li>Hematocrit</li></ul>",
+  "short_description_en": "Comprehensive blood panel measuring red cells, white cells, and platelets.",
+  "price_raw": "350 EGP",
+  "price_piastres": 35000,
+  "original_price_piastres": null,
+  "category_slugs": ["blood-tests", "general-health"],
+  "images": [
+    "https://acculab.org/wp-content/uploads/complete-blood-count.jpg"
+  ],
+  "sample_type": "Blood",
+  "is_kit": false,
+  "meta_title_en": "Complete Blood Count (CBC) Test | Accurate Results in Cairo",
+  "meta_description_en": "Book your CBC blood test at our Nasr City or Maadi branch. Results within 24 hours. 350 EGP.",
+  "name_ar": null,
+  "description_ar": null,
+  "short_description_ar": null,
+  "meta_title_ar": null,
+  "meta_description_ar": null
+}

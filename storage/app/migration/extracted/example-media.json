@@ -1,0 +1,17 @@
+{
+  "source_url": "https://acculab.org/wp-content/uploads/complete-blood-count.jpg",
+  "disk": "public",
+  "path": "media/package/complete-blood-count/complete-blood-count_a3f9e1b2.jpg",
+  "filename": "complete-blood-count_a3f9e1b2.jpg",
+  "mime_type": "image/jpeg",
+  "file_size": 84320,
+  "width": 800,
+  "height": 600,
+  "content_hash": "a3f9e1b2c7d804f5e6a9b10c2d3e4f5a",
+  "entity_type": "package",
+  "entity_slug": "complete-blood-count",
+  "field": "thumbnail",
+  "deduplicated": false,
+  "dedup_reason": null,
+  "downloaded_at": "2026-04-13T10:22:05.000Z"
+}
