@@ -6,10 +6,10 @@
 @section('content')
 
 {{-- Hero --}}
-<section class="bg-gradient-to-br from-blue-900 to-cyan-800 text-white py-20">
+<section class="bg-gradient-to-br from-green-900 to-emerald-700 text-white py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h1 class="text-4xl md:text-5xl font-extrabold mb-4">{{ __('site.about.title') }}</h1>
-        <p class="text-blue-100 text-lg max-w-2xl mx-auto">{{ __('site.about.subtitle') }}</p>
+        <p class="text-green-100 text-lg max-w-2xl mx-auto">{{ __('site.about.subtitle') }}</p>
     </div>
 </section>
 
@@ -17,13 +17,13 @@
 <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div class="bg-blue-50 rounded-2xl p-8">
-                <div class="w-12 h-12 rounded-xl bg-blue-700 text-white flex items-center justify-center mb-5 text-2xl">🎯</div>
+            <div class="bg-green-50 rounded-2xl p-8">
+                <div class="w-12 h-12 rounded-xl bg-green-700 text-white flex items-center justify-center mb-5 text-2xl">🎯</div>
                 <h2 class="text-2xl font-bold text-slate-900 mb-4">{{ __('site.about.mission_title') }}</h2>
                 <p class="text-slate-600 leading-relaxed">{{ __('site.about.mission') }}</p>
             </div>
-            <div class="bg-cyan-50 rounded-2xl p-8">
-                <div class="w-12 h-12 rounded-xl bg-cyan-700 text-white flex items-center justify-center mb-5 text-2xl">🔭</div>
+            <div class="bg-emerald-50 rounded-2xl p-8">
+                <div class="w-12 h-12 rounded-xl bg-emerald-700 text-white flex items-center justify-center mb-5 text-2xl">🔭</div>
                 <h2 class="text-2xl font-bold text-slate-900 mb-4">{{ __('site.about.vision_title') }}</h2>
                 <p class="text-slate-600 leading-relaxed">{{ __('site.about.vision') }}</p>
             </div>
@@ -55,7 +55,7 @@
         <p class="text-sm font-semibold text-slate-400 uppercase tracking-widest mb-8">Accreditations & Certifications</p>
         <div class="flex flex-wrap justify-center gap-8 items-center">
             @foreach(['ISO 15189', 'ISO 9001', 'CAP Accredited', 'JCI Certified'] as $cert)
-                <div class="px-6 py-3 border-2 border-slate-200 rounded-xl text-slate-600 font-bold text-sm">{{ $cert }}</div>
+                <div class="px-6 py-3 border-2 border-green-200 rounded-xl text-green-800 font-bold text-sm">{{ $cert }}</div>
             @endforeach
         </div>
     </div>

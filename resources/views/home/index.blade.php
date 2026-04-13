@@ -5,11 +5,11 @@
 @section('content')
 
 {{-- ── Hero ─────────────────────────────────────────────────────────────── --}}
-<section class="relative bg-gradient-to-br from-blue-900 via-blue-800 to-cyan-700 text-white overflow-hidden">
+<section class="relative bg-gradient-to-br from-green-900 via-green-800 to-emerald-700 text-white overflow-hidden">
     {{-- Background decoration --}}
     <div class="absolute inset-0 opacity-10">
         <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-white/20 blur-3xl"></div>
-        <div class="absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-cyan-300/20 blur-3xl"></div>
+        <div class="absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-emerald-300/20 blur-3xl"></div>
     </div>
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
@@ -20,12 +20,12 @@
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
                 {!! __('site.home.hero_title') !!}
             </h1>
-            <p class="text-lg md:text-xl text-blue-100 leading-relaxed mb-10">
+            <p class="text-lg md:text-xl text-green-100 leading-relaxed mb-10">
                 {{ __('site.home.hero_subtitle') }}
             </p>
             <div class="flex flex-wrap gap-4">
                 <a href="{{ route(app()->getLocale() === 'ar' ? 'ar.booking' : 'booking') }}"
-                   class="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-blue-800 font-bold rounded-xl hover:bg-blue-50 transition-colors shadow-lg">
+                   class="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-green-800 font-bold rounded-xl hover:bg-green-50 transition-colors shadow-lg">
                     {{ __('site.home.hero_cta') }}
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -41,7 +41,7 @@
     </div>
 
     {{-- Stats bar --}}
-    <div class="relative border-t border-white/10 bg-blue-900/40 backdrop-blur-sm">
+    <div class="relative border-t border-white/10 bg-green-900/40 backdrop-blur-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
                 @foreach([
@@ -52,7 +52,7 @@
                 ] as [$val, $label])
                     <div>
                         <div class="text-2xl md:text-3xl font-extrabold text-white">{{ $val }}</div>
-                        <div class="text-xs text-blue-200 mt-1 font-medium">{{ $label }}</div>
+                        <div class="text-xs text-green-200 mt-1 font-medium">{{ $label }}</div>
                     </div>
                 @endforeach
             </div>
@@ -71,13 +71,13 @@
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             @foreach($categories as $cat)
                 <a href="{{ route(app()->getLocale() === 'ar' ? 'ar.tests' : 'tests', ['category' => $cat->slug]) }}"
-                   class="group bg-white rounded-xl p-5 text-center border border-slate-200 hover:border-blue-400 hover:shadow-md transition-all">
-                    <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center mx-auto mb-3 group-hover:bg-blue-700 group-hover:text-white transition-colors">
+                   class="group bg-white rounded-xl p-5 text-center border border-slate-200 hover:border-green-400 hover:shadow-md transition-all">
+                    <div class="w-10 h-10 rounded-lg bg-green-50 text-green-700 flex items-center justify-center mx-auto mb-3 group-hover:bg-green-700 group-hover:text-white transition-colors">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
                         </svg>
                     </div>
-                    <span class="text-sm font-semibold text-slate-700 group-hover:text-blue-700 transition-colors">
+                    <span class="text-sm font-semibold text-slate-700 group-hover:text-green-700 transition-colors">
                         {{ $cat->name }}
                     </span>
                 </a>
@@ -85,7 +85,7 @@
         </div>
         <div class="text-center mt-8">
             <a href="{{ route(app()->getLocale() === 'ar' ? 'ar.tests' : 'tests') }}"
-               class="text-sm font-semibold text-blue-700 hover:text-blue-800 inline-flex items-center gap-1">
+               class="text-sm font-semibold text-green-700 hover:text-green-800 inline-flex items-center gap-1">
                 {{ __('site.common.view_all') }}
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -97,7 +97,7 @@
 </section>
 @endif
 
-{{-- ── Why AccuLab ──────────────────────────────────────────────────────── --}}
+{{-- ── Why El-Sheikha Lab ────────────────────────────────────────────────── --}}
 <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
@@ -117,7 +117,7 @@
 
 {{-- ── Featured Packages ────────────────────────────────────────────────── --}}
 @if($featuredPackages->isNotEmpty())
-<section class="py-20 bg-blue-50">
+<section class="py-20 bg-green-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
             <h2 class="text-3xl font-bold text-slate-900">{{ __('site.home.packages_title') }}</h2>
@@ -135,7 +135,7 @@
                     <div class="flex items-center justify-between mt-4 pt-4 border-t border-slate-100">
                         @if($pkg->price_egp)
                             <div>
-                                <span class="text-xl font-bold text-blue-700">{{ number_format($pkg->price_egp, 0) }}</span>
+                                <span class="text-xl font-bold text-green-700">{{ number_format($pkg->price_egp, 0) }}</span>
                                 <span class="text-sm text-slate-500 ml-1">{{ __('site.common.egp') }}</span>
                                 @if($pkg->original_price_egp && $pkg->original_price_egp > $pkg->price_egp)
                                     <div class="text-xs text-slate-400 line-through">{{ number_format($pkg->original_price_egp, 0) }} {{ __('site.common.egp') }}</div>
@@ -143,7 +143,7 @@
                             </div>
                         @endif
                         <a href="{{ route(app()->getLocale() === 'ar' ? 'ar.booking' : 'booking') }}"
-                           class="px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white text-sm font-semibold rounded-lg transition-colors">
+                           class="px-4 py-2 bg-green-700 hover:bg-green-800 text-white text-sm font-semibold rounded-lg transition-colors">
                             {{ __('site.tests.book') }}
                         </a>
                     </div>
@@ -152,7 +152,7 @@
         </div>
         <div class="text-center mt-8">
             <a href="{{ route(app()->getLocale() === 'ar' ? 'ar.packages' : 'packages') }}"
-               class="text-sm font-semibold text-blue-700 hover:text-blue-800 inline-flex items-center gap-1">
+               class="text-sm font-semibold text-green-700 hover:text-green-800 inline-flex items-center gap-1">
                 {{ __('site.common.view_all') }}
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7l7 7-7 7"/>
@@ -173,8 +173,8 @@
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             @foreach($branches as $branch)
-                <div class="flex items-start gap-4 bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-blue-300 transition-colors">
-                    <div class="w-10 h-10 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center flex-shrink-0">
+                <div class="flex items-start gap-4 bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-green-300 transition-colors">
+                    <div class="w-10 h-10 rounded-lg bg-green-100 text-green-700 flex items-center justify-center flex-shrink-0">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -186,7 +186,7 @@
                             <p class="text-xs text-slate-500 mt-1">{{ $branch->address }}</p>
                         @endif
                         @if($branch->phone)
-                            <a href="tel:{{ $branch->phone }}" class="text-xs text-blue-600 mt-1 inline-block">{{ $branch->phone }}</a>
+                            <a href="tel:{{ $branch->phone }}" class="text-xs text-green-600 mt-1 inline-block">{{ $branch->phone }}</a>
                         @endif
                     </div>
                 </div>
@@ -194,7 +194,7 @@
         </div>
         <div class="text-center mt-8">
             <a href="{{ route(app()->getLocale() === 'ar' ? 'ar.branches' : 'branches') }}"
-               class="text-sm font-semibold text-blue-700 hover:text-blue-800">
+               class="text-sm font-semibold text-green-700 hover:text-green-800">
                 {{ __('site.common.view_all') }} →
             </a>
         </div>
@@ -236,13 +236,13 @@
 @endif
 
 {{-- ── CTA Banner ───────────────────────────────────────────────────────── --}}
-<section class="py-20 bg-gradient-to-r from-blue-800 to-cyan-700 text-white">
+<section class="py-20 bg-gradient-to-r from-green-800 to-emerald-600 text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 class="text-3xl md:text-4xl font-extrabold mb-4">{{ __('site.home.cta_title') }}</h2>
-        <p class="text-blue-100 mb-8 max-w-xl mx-auto">{{ __('site.home.cta_subtitle') }}</p>
+        <p class="text-green-100 mb-8 max-w-xl mx-auto">{{ __('site.home.cta_subtitle') }}</p>
         <div class="flex flex-wrap justify-center gap-4">
             <a href="{{ route(app()->getLocale() === 'ar' ? 'ar.booking' : 'booking') }}"
-               class="px-8 py-3.5 bg-white text-blue-800 font-bold rounded-xl hover:bg-blue-50 transition-colors shadow-lg">
+               class="px-8 py-3.5 bg-white text-green-800 font-bold rounded-xl hover:bg-green-50 transition-colors shadow-lg">
                 {{ __('site.home.cta_button') }}
             </a>
             <a href="tel:19000"

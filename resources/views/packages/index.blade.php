@@ -6,10 +6,10 @@
 @section('content')
 
 {{-- Hero --}}
-<section class="bg-gradient-to-br from-blue-900 to-cyan-800 text-white py-16">
+<section class="bg-gradient-to-br from-green-900 to-emerald-700 text-white py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h1 class="text-4xl font-extrabold mb-3">{{ __('site.packages.title') }}</h1>
-        <p class="text-blue-100">{{ __('site.packages.subtitle') }}</p>
+        <p class="text-green-100">{{ __('site.packages.subtitle') }}</p>
     </div>
 </section>
 
@@ -20,13 +20,13 @@
         <div class="flex flex-wrap gap-2 mb-8">
             <a href="{{ route(app()->getLocale() === 'ar' ? 'ar.packages' : 'packages') }}"
                class="px-4 py-1.5 rounded-full text-sm font-medium transition-colors
-                      {{ !request('category') ? 'bg-blue-700 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200' }}">
+                      {{ !request('category') ? 'bg-green-700 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200' }}">
                 {{ __('site.tests.all') }}
             </a>
             @foreach($categories as $cat)
                 <a href="{{ route(app()->getLocale() === 'ar' ? 'ar.packages' : 'packages', ['category' => $cat->slug]) }}"
                    class="px-4 py-1.5 rounded-full text-sm font-medium transition-colors
-                          {{ request('category') === $cat->slug ? 'bg-blue-700 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200' }}">
+                          {{ request('category') === $cat->slug ? 'bg-green-700 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200' }}">
                     {{ $cat->name }}
                 </a>
             @endforeach
@@ -55,7 +55,7 @@
                         @if($pkg->categories->isNotEmpty())
                             <div class="flex flex-wrap gap-1 mb-4">
                                 @foreach($pkg->categories->take(3) as $cat)
-                                    <span class="text-xs bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full">{{ $cat->name }}</span>
+                                    <span class="text-xs bg-green-50 text-green-700 px-2 py-0.5 rounded-full">{{ $cat->name }}</span>
                                 @endforeach
                             </div>
                         @endif
@@ -63,7 +63,7 @@
                     <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
                         <div>
                             @if($pkg->price_egp)
-                                <div class="font-bold text-blue-700 text-lg">
+                                <div class="font-bold text-green-700 text-lg">
                                     {{ number_format($pkg->price_egp, 0) }}
                                     <span class="text-xs font-normal text-slate-500">{{ __('site.common.egp') }}</span>
                                 </div>
@@ -73,7 +73,7 @@
                             @endif
                         </div>
                         <a href="{{ route(app()->getLocale() === 'ar' ? 'ar.booking' : 'booking') }}"
-                           class="px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white text-sm font-semibold rounded-lg transition-colors">
+                           class="px-4 py-2 bg-green-700 hover:bg-green-800 text-white text-sm font-semibold rounded-lg transition-colors">
                             {{ __('site.packages.book') }}
                         </a>
                     </div>
