@@ -22,6 +22,7 @@
                 ['id' => 'blood',       'label' => __('site.prepare.blood_title')],
                 ['id' => 'urine',       'label' => __('site.prepare.urine_title')],
                 ['id' => 'stool',       'label' => __('site.prepare.stool_title')],
+                ['id' => 'semen',       'label' => __('site.prepare.semen_title')],
                 ['id' => 'appointments','label' => __('site.prepare.appointments_title')],
             ] as $anchor)
                 <a href="#{{ $anchor['id'] }}"
@@ -113,6 +114,27 @@
             @foreach((array) __('site.prepare.stool_tips') as $tip)
                 <li class="flex items-start gap-3 p-4 bg-green-50 rounded-xl border border-green-100">
                     <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span class="text-slate-700 text-sm">{{ $tip }}</span>
+                </li>
+            @endforeach
+        </ul>
+    </section>
+
+    <hr class="border-slate-200">
+
+    {{-- Semen Analysis --}}
+    <section id="semen">
+        <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center text-xl">🔬</div>
+            <h2 class="text-2xl font-bold text-slate-900">{{ __('site.prepare.semen_title') }}</h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed mb-4">{{ __('site.prepare.semen_desc') }}</p>
+        <ul class="space-y-3">
+            @foreach((array) __('site.prepare.semen_tips') as $tip)
+                <li class="flex items-start gap-3 p-4 bg-purple-50 rounded-xl border border-purple-100">
+                    <svg class="w-5 h-5 text-purple-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                     </svg>
                     <span class="text-slate-700 text-sm">{{ $tip }}</span>

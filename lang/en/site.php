@@ -161,6 +161,17 @@ return [
             'Inform the lab of any recent antibiotic use.',
         ],
 
+        'semen_title' => 'Semen Analysis',
+        'semen_desc'  => 'Semen analysis requires specific preparation to ensure accurate results.',
+        'semen_tips'  => [
+            'Abstain from intercourse or masturbation for 2–7 days before collection.',
+            'Collect the entire sample in the sterile container provided — do not use condoms.',
+            'Do not allow any spillage; the entire volume is essential for analysis.',
+            'Deliver the sample to the laboratory within 60 minutes of collection.',
+            'Keep the container at body temperature (trouser pocket) during transport.',
+            'Inform the lab of any recent illness or medication use.',
+        ],
+
         'appointments_title' => 'Tests Requiring Appointments',
         'appointments_desc'  => 'The following tests require a pre-booked appointment for proper preparation and scheduling.',
         'appointments_list'  => [
@@ -172,6 +183,7 @@ return [
             '24-Hour Urine Collection',
             'Sputum Culture',
             'Breath Alcohol Testing',
+            'Bone Marrow Aspiration',
         ],
 
         'cta_title' => 'Ready to Book?',
