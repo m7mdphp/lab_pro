@@ -4,7 +4,7 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "postbuild": "php artisan filament:assets --force 2>/dev/null || true"
+        "postbuild": "yes | php artisan filament:assets 2>/dev/null || true"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.7",
