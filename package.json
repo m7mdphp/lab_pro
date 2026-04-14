@@ -3,7 +3,8 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "postbuild": "php artisan filament:assets 2>/dev/null || true"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.7",
