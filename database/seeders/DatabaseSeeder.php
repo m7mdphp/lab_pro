@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
             ServiceSeeder::class,
             TestCategorySeeder::class,
             PackageSeeder::class,
+            CompleteDataSeeder::class,
             BranchSeeder::class,
             FaqSeeder::class,
             PartnerSeeder::class,

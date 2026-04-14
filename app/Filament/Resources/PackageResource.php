@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PackageResource\Pages;
 use App\Models\Package;
+use App\Models\TestCategory;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -74,6 +75,14 @@ class PackageResource extends Resource
                     Forms\Components\TextInput::make('sort_order')->label('الترتيب')->numeric()->default(0),
                     Forms\Components\Toggle::make('is_active')->label('نشط')->default(false),
                     Forms\Components\Toggle::make('is_featured')->label('مميز')->default(false),
+                    Forms\Components\Toggle::make('is_kit')->label('مجموعة منزلية')->default(false),
+                    Forms\Components\Select::make('categories')
+                        ->label('الأقسام')
+                        ->multiple()
+                        ->relationship('categories', 'id')
+                        ->getOptionLabelFromRecordUsing(fn(TestCategory $record) => $record->name)
+                        ->preload()
+                        ->columnSpanFull(),
                 ])->columns(2),
 
             ])->columnSpanFull(),
