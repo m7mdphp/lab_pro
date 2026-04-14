@@ -6,6 +6,20 @@
     "cmd": "yes | php artisan filament:assets && npm run build"
   },
   "start": {
-    "cmd": "php artisan migrate --force && php artisan config:cache && php artisan route:cache && php artisan view:cache && php artisan serve --host=0.0.0.0 --port=$PORT"
+    "scripts": [
+      {
+        "name": "migrate",
+        "cmd": "php artisan migrate --force"
+      },
+      {
+        "name": "filament-assets",
+        "cmd": "yes | php artisan filament:assets 2>/dev/null || true"
+      },
+      {
+        "name": "optimize",
+        "cmd": "php artisan config:cache && php artisan route:cache && php artisan view:cache"
+      }
+    ],
+    "cmd": "php artisan serve --host=0.0.0.0 --port=$PORT"
   }
 }
