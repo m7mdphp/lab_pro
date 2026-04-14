@@ -8,7 +8,7 @@ return [
 
     'debug' => (bool) env('APP_DEBUG', false),
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => trim(env('APP_URL', 'http://localhost'), "\r\n\t"),
 
     'timezone' => env('APP_TIMEZONE', 'Africa/Cairo'),
 
