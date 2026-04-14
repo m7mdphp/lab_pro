@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ContactMessage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -22,8 +23,8 @@ class ContactController extends Controller
             'message' => 'required|string|max:5000',
         ]);
 
-        // TODO: send notification / store to DB when contact_messages table is added
-        // For now we just flash success
+        ContactMessage::create($request->only('name', 'email', 'phone', 'message'));
+
         $locale = app()->getLocale();
         $prefix = $locale === 'ar' ? '/ar' : '';
 

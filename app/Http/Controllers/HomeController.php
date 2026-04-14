@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Branch;
 use App\Models\Faq;
 use App\Models\Package;
+use App\Models\Partner;
 use App\Models\TestCategory;
 use Illuminate\View\View;
 
@@ -31,11 +32,15 @@ class HomeController extends Controller
             ->limit(6)
             ->get();
 
+        $partners = Partner::active()
+            ->with('translations')
+            ->get();
+
         $faqs = Faq::active()
             ->with('translations')
             ->limit(8)
             ->get();
 
-        return view('home.index', compact('categories', 'featuredPackages', 'branches', 'faqs'));
+        return view('home.index', compact('categories', 'featuredPackages', 'branches', 'partners', 'faqs'));
     }
 }

@@ -13,29 +13,66 @@
     </div>
 </section>
 
-{{-- Service cards --}}
+{{-- Service type cards --}}
+@if($services->isNotEmpty())
 <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            @foreach([
-                ['key' => 'home_collection', 'icon' => '🏠', 'color' => 'green'],
-                ['key' => 'walk_in',         'icon' => '🏥', 'color' => 'emerald'],
-                ['key' => 'corporate',       'icon' => '🏢', 'color' => 'teal'],
-                ['key' => 'results_online',  'icon' => '📱', 'color' => 'green'],
-            ] as $svc)
-                <div class="flex gap-5 p-6 bg-slate-50 rounded-2xl border border-slate-200 hover:border-green-300 hover:shadow-md transition-all">
-                    <div class="w-14 h-14 rounded-xl bg-{{ $svc['color'] }}-100 text-{{ $svc['color'] }}-700 text-2xl flex items-center justify-center flex-shrink-0">
-                        {{ $svc['icon'] }}
+            @php
+                $colorMap = [
+                    'green'  => ['bg' => 'bg-green-100',  'text' => 'text-green-700',  'border' => 'hover:border-green-400',  'btn' => 'bg-green-700 hover:bg-green-800'],
+                    'blue'   => ['bg' => 'bg-blue-100',   'text' => 'text-blue-700',   'border' => 'hover:border-blue-400',   'btn' => 'bg-blue-700 hover:bg-blue-800'],
+                    'orange' => ['bg' => 'bg-orange-100', 'text' => 'text-orange-700', 'border' => 'hover:border-orange-400', 'btn' => 'bg-orange-700 hover:bg-orange-800'],
+                    'purple' => ['bg' => 'bg-purple-100', 'text' => 'text-purple-700', 'border' => 'hover:border-purple-400', 'btn' => 'bg-purple-700 hover:bg-purple-800'],
+                ];
+            @endphp
+            @foreach($services as $svc)
+                @php
+                    $colors = $colorMap[$svc->color] ?? $colorMap['green'];
+                    $locale = app()->getLocale();
+                    $route  = $locale === 'ar' ? 'ar.services.show' : 'services.show';
+                @endphp
+                <a href="{{ route($route, $svc->slug) }}"
+                   class="group flex flex-col p-8 bg-slate-50 rounded-2xl border border-slate-200 {{ $colors['border'] }} hover:shadow-lg transition-all">
+                    <div class="flex items-start gap-5 mb-5">
+                        <div class="w-16 h-16 rounded-2xl {{ $colors['bg'] }} {{ $colors['text'] }} flex items-center justify-center flex-shrink-0 text-3xl group-hover:scale-105 transition-transform">
+                            @switch($svc->icon)
+                                @case('heroicon-o-user') 🧑‍⚕️ @break
+                                @case('heroicon-o-academic-cap') 👨‍🔬 @break
+                                @case('heroicon-o-building-office') 🏢 @break
+                                @case('heroicon-o-building-library') 🏥 @break
+                                @default 🔬
+                            @endswitch
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-green-700 transition-colors">{{ $svc->name }}</h2>
+                            <p class="text-slate-500 text-sm leading-relaxed">{{ $svc->short_description }}</p>
+                        </div>
                     </div>
-                    <div>
-                        <h3 class="font-bold text-slate-900 text-lg mb-2">{{ __('site.services.' . $svc['key'] . '.title') }}</h3>
-                        <p class="text-slate-500 text-sm leading-relaxed">{{ __('site.services.' . $svc['key'] . '.desc') }}</p>
-                    </div>
-                </div>
+
+                    @if(count($svc->features) > 0)
+                    <ul class="space-y-2 mb-6 flex-1">
+                        @foreach(array_slice($svc->features, 0, 4) as $feature)
+                            <li class="flex items-start gap-2 text-sm text-slate-600">
+                                <svg class="w-4 h-4 mt-0.5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                {{ $feature }}
+                            </li>
+                        @endforeach
+                    </ul>
+                    @endif
+
+                    <span class="{{ $colors['btn'] }} text-white text-sm font-semibold px-5 py-2.5 rounded-xl inline-block text-center transition-colors">
+                        {{ __('site.services.learn_more') }}
+                        <span class="{{ app()->getLocale() === 'ar' ? 'mr-1' : 'ml-1' }}">→</span>
+                    </span>
+                </a>
             @endforeach
         </div>
     </div>
 </section>
+@endif
 
 {{-- Test categories --}}
 @if($categories->isNotEmpty())

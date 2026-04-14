@@ -202,6 +202,37 @@
 </section>
 @endif
 
+{{-- ── Partners ──────────────────────────────────────────────────────────── --}}
+@if($partners->isNotEmpty())
+<section class="py-16 bg-slate-50 border-y border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10">
+            <p class="text-sm font-semibold text-slate-400 uppercase tracking-widest mb-2">{{ __('site.home.partners_label') }}</p>
+            <h2 class="text-2xl font-bold text-slate-900">{{ __('site.home.partners_title') }}</h2>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+            @foreach($partners as $partner)
+                <div class="bg-white rounded-xl border border-slate-200 p-5 text-center hover:border-green-300 hover:shadow-sm transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-green-100 text-green-700 font-black text-xl flex items-center justify-center mx-auto mb-3">
+                        {{ mb_substr($partner->name, 0, 1) }}
+                    </div>
+                    <p class="font-semibold text-slate-800 text-sm">{{ $partner->name }}</p>
+                    @if($partner->specialty)
+                        <p class="text-xs text-slate-400 mt-1">{{ $partner->specialty }}</p>
+                    @endif
+                </div>
+            @endforeach
+        </div>
+        <div class="text-center mt-8">
+            <a href="{{ route($locale === 'ar' ? 'ar.partners' : 'partners') }}"
+               class="text-sm font-semibold text-green-700 hover:text-green-800 inline-flex items-center gap-1">
+                {{ __('site.common.view_all') }} →
+            </a>
+        </div>
+    </div>
+</section>
+@endif
+
 {{-- ── FAQ ──────────────────────────────────────────────────────────────── --}}
 @if($faqs->isNotEmpty())
 <section class="py-20 bg-slate-50">

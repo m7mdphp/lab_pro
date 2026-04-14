@@ -20,7 +20,9 @@
         ['route' => 'services', 'label' => __('site.nav.services')],
         ['route' => 'tests',    'label' => __('site.nav.tests')],
         ['route' => 'packages', 'label' => __('site.nav.packages')],
+        ['route' => 'prepare',  'label' => __('site.nav.prepare')],
         ['route' => 'branches', 'label' => __('site.nav.branches')],
+        ['route' => 'partners', 'label' => __('site.nav.partners')],
         ['route' => 'contact',  'label' => __('site.nav.contact')],
     ];
 @endphp

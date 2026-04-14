@@ -20,4 +20,19 @@ class ServicesController extends Controller
 
         return view('services.index', compact('services', 'categories'));
     }
+
+    public function show(string $slug): View
+    {
+        $service = Service::where('slug', $slug)
+            ->where('is_active', true)
+            ->with('translations')
+            ->firstOrFail();
+
+        $otherServices = Service::active()
+            ->where('slug', '!=', $slug)
+            ->with('translations')
+            ->get();
+
+        return view('services.show', compact('service', 'otherServices'));
+    }
 }
