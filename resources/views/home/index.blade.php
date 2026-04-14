@@ -224,7 +224,7 @@
             @endforeach
         </div>
         <div class="text-center mt-8">
-            <a href="{{ route($locale === 'ar' ? 'ar.partners' : 'partners') }}"
+            <a href="{{ route(app()->getLocale() === 'ar' ? 'ar.partners' : 'partners') }}"
                class="text-sm font-semibold text-green-700 hover:text-green-800 inline-flex items-center gap-1">
                 {{ __('site.common.view_all') }} →
             </a>
