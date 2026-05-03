@@ -45,7 +45,7 @@ class SiteImagesPage extends Page
                         $component->state(null);
                     }
                 })
-                ->columnSpan(1),
+                ->columnSpan(1);
 
         $urlField = fn (string $key, string $label) =>
             Forms\Components\TextInput::make($key . '_url')
