@@ -40,6 +40,13 @@ return new class extends Migration
             ['key' => 'tagline_ar',     'value' => 'نتائج دقيقة، قرارات أسرع',                    'group' => 'seo'],
             ['key' => 'tagline_en',     'value' => 'Accurate Results, Faster Decisions',            'group' => 'seo'],
             ['key' => 'branches_count', 'value' => '4',                                             'group' => 'general'],
+            ['key' => 'founded_year',   'value' => '2010',                                            'group' => 'seo'],
+
+            // Stats / numbers
+            ['key' => 'stat_tests_count',             'value' => '300+',      'group' => 'stats'],
+            ['key' => 'stat_analyses_done',           'value' => '1M+',       'group' => 'stats'],
+            ['key' => 'stat_avg_time',                'value' => '24 h',      'group' => 'stats'],
+            ['key' => 'stat_total_analyses_milestone','value' => '+1,000,000','group' => 'stats'],
         ];
 
         foreach ($defaults as $setting) {

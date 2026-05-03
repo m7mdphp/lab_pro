@@ -4,6 +4,10 @@
 @section('description', __('site.booking.subtitle'))
 
 @section('content')
+@php
+    use App\Models\SiteSetting;
+    $bookingHotline = SiteSetting::get('hotline', '19XXX');
+@endphp
 
 {{-- Hero --}}
 <section class="relative text-white overflow-hidden" style="min-height: 340px;">
@@ -119,7 +123,7 @@
 
             <p class="text-center text-xs text-slate-400">
                 {{ __('site.booking.hint') }}:
-                <a href="tel:19000" class="text-green-600 font-semibold hover:text-green-700">19XXX</a>
+                <a href="tel:{{ $bookingHotline }}" class="text-green-600 font-semibold hover:text-green-700">{{ $bookingHotline }}</a>
             </p>
         </form>
     </div>

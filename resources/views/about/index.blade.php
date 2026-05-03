@@ -2,6 +2,15 @@
 
 @section('title', __('site.about.title'))
 @section('description', __('site.about.subtitle'))
+@php
+    use App\Models\SiteSetting;
+    $totalMilestone = SiteSetting::get('stat_total_analyses_milestone', '+1,000,000');
+    $foundedYear    = SiteSetting::get('founded_year', '2010');
+    $statTests      = SiteSetting::get('stat_tests_count', '300+');
+    $statBranches   = SiteSetting::get('branches_count', '4');
+    $statDone       = SiteSetting::get('stat_analyses_done', '1M+');
+    $statTime       = SiteSetting::get('stat_avg_time', '24 h');
+@endphp
 
 @section('content')
 
@@ -16,13 +25,18 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
                 <span class="inline-block bg-white/15 border border-white/25 text-white text-xs font-bold px-4 py-1.5 rounded-full mb-6">
-                    {{ __('site.about.since') }}
+                    🔬 {{ app()->getLocale() === 'ar' ? 'في خدمة مرضانا منذ' : 'Serving patients since' }} {{ $foundedYear }}
                 </span>
                 <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-5">{{ __('site.about.title') }}</h1>
                 <p class="text-green-100 text-lg leading-relaxed">{{ __('site.about.subtitle') }}</p>
             </div>
             <div class="grid grid-cols-2 gap-4">
-                @foreach(__('site.about.stats') as $stat)
+                @foreach([
+                    ['value' => $statTests,    'label' => __('site.about.stats')[0]['label'] ?? 'تحليل وباقة'],
+                    ['value' => $statBranches, 'label' => __('site.about.stats')[1]['label'] ?? 'فروع'],
+                    ['value' => $statDone,     'label' => __('site.about.stats')[2]['label'] ?? 'تحليل منجز'],
+                    ['value' => $statTime,     'label' => __('site.about.stats')[3]['label'] ?? 'متوسط وقت الإنجاز'],
+                ] as $stat)
                     <div class="bg-white/10 border border-white/20 rounded-2xl p-6 text-center backdrop-blur-sm hover:bg-white/15 transition-colors">
                         <div class="text-3xl font-extrabold text-white mb-1">{{ $stat['value'] }}</div>
                         <div class="text-sm text-green-200 font-medium">{{ $stat['label'] }}</div>
@@ -56,7 +70,7 @@
      style="background-image: url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1920&q=80&auto=format&fit=crop'); background-size: cover; background-position: center 30%;">
     <div class="absolute inset-0 bg-green-900/50 flex items-center justify-center">
         <div class="text-center text-white">
-            <div class="text-5xl font-extrabold mb-2">+1,000,000</div>
+            <div class="text-5xl font-extrabold mb-2">{{ $totalMilestone }}</div>
             <div class="text-xl font-semibold text-green-200">تحليل طبي منذ التأسيس</div>
         </div>
     </div>

@@ -103,7 +103,33 @@ class SiteSettingsPage extends Page
                         Forms\Components\TextInput::make('tagline_en')
                             ->label('Tagline (English)')
                             ->placeholder('Accurate Results, Faster Decisions'),
+                        Forms\Components\TextInput::make('founded_year')
+                            ->label('سنة التأسيس')
+                            ->placeholder('2010'),
                     ])->columns(2),
+
+                    Forms\Components\Tabs\Tab::make('الإحصاءات والأرقام')->icon('heroicon-o-chart-bar')->schema([
+                        Forms\Components\Section::make('أرقام الصفحة الرئيسية والصفحة التعريفية')
+                            ->description('هذه الأرقام تظهر في أقسام الإحصاء على الصفحة الرئيسية وصفحة عن المعمل')
+                            ->schema([
+                                Forms\Components\TextInput::make('stat_tests_count')
+                                    ->label('عدد التحاليل والباقات')
+                                    ->placeholder('300+')
+                                    ->helperText('يظهر في بطاقة الإحصاء بالصفحة الرئيسية'),
+                                Forms\Components\TextInput::make('stat_analyses_done')
+                                    ->label('إجمالي التحاليل المنجزة')
+                                    ->placeholder('1M+')
+                                    ->helperText('مثلاً: 1M+ أو +مليون'),
+                                Forms\Components\TextInput::make('stat_avg_time')
+                                    ->label('متوسط وقت الإنجاز')
+                                    ->placeholder('24 h')
+                                    ->helperText('يظهر في بطاقة الإحصاء'),
+                                Forms\Components\TextInput::make('stat_total_analyses_milestone')
+                                    ->label('حجم التحاليل الكلي (بانر)')
+                                    ->placeholder('+1,000,000')
+                                    ->helperText('يظهر في البانر الكبير بصفحة عن المعمل'),
+                            ])->columns(2),
+                    ]),
 
                 ])->columnSpanFull(),
             ])
@@ -131,6 +157,11 @@ class SiteSettingsPage extends Page
             'site_name_en'    => 'seo',
             'tagline_ar'      => 'seo',
             'tagline_en'      => 'seo',
+            'founded_year'    => 'seo',
+            'stat_tests_count'            => 'stats',
+            'stat_analyses_done'          => 'stats',
+            'stat_avg_time'               => 'stats',
+            'stat_total_analyses_milestone' => 'stats',
         ];
 
         foreach ($state as $key => $value) {

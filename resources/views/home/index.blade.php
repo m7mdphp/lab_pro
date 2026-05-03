@@ -3,6 +3,15 @@
 @section('title', __('site.nav.home'))
 
 @section('content')
+@php
+    use App\Models\SiteSetting;
+    $statTests    = SiteSetting::get('stat_tests_count', '300+');
+    $statBranches = SiteSetting::get('branches_count', '4');
+    $statDone     = SiteSetting::get('stat_analyses_done', '1M+');
+    $statTime     = SiteSetting::get('stat_avg_time', '24 h');
+    $hotline      = SiteSetting::get('hotline', '19XXX');
+    $totalMilestone = SiteSetting::get('stat_total_analyses_milestone', '+1,000,000');
+@endphp
 
 {{-- ── Hero ─────────────────────────────────────────────────────────────── --}}
 <section class="relative text-white overflow-hidden" style="min-height: 600px;">
@@ -59,10 +68,10 @@
             {{-- Stats panel --}}
             <div class="hidden lg:grid grid-cols-2 gap-4">
                 @foreach([
-                    ['value' => '300+',  'label' => 'تحليل وباقة', 'icon' => '🔬'],
-                    ['value' => '4',     'label' => 'فروع', 'icon' => '📍'],
-                    ['value' => '1M+',   'label' => 'تحليل مُنجز', 'icon' => '✅'],
-                    ['value' => '24 h',  'label' => 'متوسط الإنجاز', 'icon' => '⚡'],
+                    ['value' => $statTests,    'label' => 'تحليل وباقة', 'icon' => '🔬'],
+                    ['value' => $statBranches, 'label' => 'فروع', 'icon' => '📍'],
+                    ['value' => $statDone,     'label' => 'تحليل مُنجز', 'icon' => '✅'],
+                    ['value' => $statTime,     'label' => 'متوسط الإنجاز', 'icon' => '⚡'],
                 ] as $stat)
                     <div class="bg-white/10 border border-white/20 rounded-2xl p-6 text-center backdrop-blur-sm hover:bg-white/15 transition-colors">
                         <div class="text-3xl mb-2">{{ $stat['icon'] }}</div>
@@ -233,7 +242,7 @@
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                     احجز الآن
                 </a>
-                <p class="text-green-400 text-sm mt-3">أو اتصل: <a href="tel:19XXX" class="font-bold hover:text-white">19XXX</a></p>
+                <p class="text-green-400 text-sm mt-3">أو اتصل: <a href="tel:{{ $hotline }}" class="font-bold hover:text-white">{{ $hotline }}</a></p>
             </div>
         </div>
     </div>
@@ -367,7 +376,7 @@
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                 {{ __('site.home.cta_button') }}
             </a>
-            <a href="tel:19XXX"
+            <a href="tel:{{ $hotline }}"
                class="inline-flex items-center gap-2 px-10 py-4 bg-white/15 border-2 border-white/40 text-white font-bold rounded-2xl hover:bg-white/25 transition-all text-base backdrop-blur-sm">
                 📞 {{ __('site.home.cta_call') }}
             </a>
