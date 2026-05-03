@@ -3,16 +3,21 @@
 return [
 
     'nav' => [
-        'home'     => 'Home',
-        'about'    => 'About Us',
-        'services' => 'Services',
-        'tests'    => 'Tests',
-        'packages' => 'Packages',
-        'prepare'  => 'Prepare for Tests',
-        'branches' => 'Branches',
-        'partners' => 'Partners',
-        'contact'  => 'Contact',
-        'book'     => 'Book a Test',
+        'home'              => 'Home',
+        'about'             => 'About Us',
+        'services'          => 'Services',
+        'tests'             => 'Tests',
+        'packages'          => 'Packages',
+        'prepare'           => 'Prepare for Tests',
+        'branches'          => 'Branches',
+        'partners'          => 'Partners',
+        'contact'           => 'Contact',
+        'book'              => 'Book a Test',
+        'blog'              => 'Blog',
+        'team'              => 'Our Team',
+        'results'           => 'My Results',
+        'doctor_services'   => 'For Doctors',
+        'corporate_services'=> 'For Corporates',
     ],
 
     'home' => [
@@ -259,6 +264,31 @@ return [
         'follow'      => 'Follow Us',
         'hotline'     => 'Hotline',
         'rights'      => 'All rights reserved.',
+    ],
+
+    'blog' => [
+        'title'    => 'Medical Blog',
+        'subtitle' => 'Health articles and tips from the El-Sheikha Lab team',
+    ],
+
+    'team' => [
+        'title'    => 'Our Team',
+        'subtitle' => 'An elite team of doctors, laboratory scientists, and specialists at your service',
+    ],
+
+    'results' => [
+        'title'    => 'My Medical Results',
+        'subtitle' => 'View your medical test results securely from anywhere',
+    ],
+
+    'doctor_services' => [
+        'title'    => 'Doctor & Medical Centre Services',
+        'subtitle' => 'A professional partnership to deliver the best laboratory care for your patients',
+    ],
+
+    'corporate_services' => [
+        'title'    => 'Corporate & Institutional Services',
+        'subtitle' => 'Comprehensive occupational health programmes to protect your employees and boost productivity',
     ],
 
     'common' => [

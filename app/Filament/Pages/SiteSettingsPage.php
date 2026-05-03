@@ -108,6 +108,27 @@ class SiteSettingsPage extends Page
                             ->placeholder('2010'),
                     ])->columns(2),
 
+                    Forms\Components\Tabs\Tab::make('بوابة النتائج')->icon('heroicon-o-document-magnifying-glass')->schema([
+                        Forms\Components\Section::make('بوابة نتائج المرضى (My Results)')
+                            ->description('أدخل رابط نظام المختبر الخاص بك (IbnHayan, CorelLab, LIS...) ليُحوَّل إليه المريض من صفحة "نتائجي"')
+                            ->schema([
+                                Forms\Components\TextInput::make('results_portal_url')
+                                    ->label('رابط بوابة النتائج')
+                                    ->url()
+                                    ->placeholder('https://www.ibnahayan.com/...')
+                                    ->helperText('اتركه فارغاً إذا لم يكن لديك بوابة خارجية — ستظهر معلومات الاتصال بدلاً منه')
+                                    ->columnSpanFull(),
+                                Forms\Components\TextInput::make('results_portal_label_ar')
+                                    ->label('اسم البوابة (عربي)')
+                                    ->placeholder('بوابة IbnHayan')
+                                    ->default('بوابة النتائج الإلكترونية'),
+                                Forms\Components\TextInput::make('results_portal_label_en')
+                                    ->label('Portal Name (EN)')
+                                    ->placeholder('IbnHayan Portal')
+                                    ->default('Online Results Portal'),
+                            ])->columns(2),
+                    ])->columns(1),
+
                     Forms\Components\Tabs\Tab::make('الإحصاءات والأرقام')->icon('heroicon-o-chart-bar')->schema([
                         Forms\Components\Section::make('أرقام الصفحة الرئيسية والصفحة التعريفية')
                             ->description('هذه الأرقام تظهر في أقسام الإحصاء على الصفحة الرئيسية وصفحة عن المعمل')
@@ -162,6 +183,9 @@ class SiteSettingsPage extends Page
             'stat_analyses_done'          => 'stats',
             'stat_avg_time'               => 'stats',
             'stat_total_analyses_milestone' => 'stats',
+            'results_portal_url'          => 'results',
+            'results_portal_label_ar'     => 'results',
+            'results_portal_label_en'     => 'results',
         ];
 
         foreach ($state as $key => $value) {

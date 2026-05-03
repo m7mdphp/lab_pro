@@ -22,10 +22,18 @@
         ['route' => 'services', 'label' => __('site.nav.services')],
         ['route' => 'tests',    'label' => __('site.nav.tests')],
         ['route' => 'packages', 'label' => __('site.nav.packages')],
-        ['route' => 'prepare',  'label' => __('site.nav.prepare')],
         ['route' => 'branches', 'label' => __('site.nav.branches')],
-        ['route' => 'partners', 'label' => __('site.nav.partners')],
+        ['route' => 'blog',     'label' => __('site.nav.blog')],
         ['route' => 'contact',  'label' => __('site.nav.contact')],
+    ];
+
+    // "More" dropdown items
+    $moreLinks = [
+        ['route' => 'prepare',            'label' => __('site.nav.prepare'),            'icon' => '🧪'],
+        ['route' => 'team',               'label' => __('site.nav.team'),               'icon' => '👨‍⚕️'],
+        ['route' => 'partners',           'label' => __('site.nav.partners'),           'icon' => '🤝'],
+        ['route' => 'doctor-services',    'label' => __('site.nav.doctor_services'),    'icon' => '👨‍⚕️'],
+        ['route' => 'corporate-services', 'label' => __('site.nav.corporate_services'), 'icon' => '🏢'],
     ];
 @endphp
 
@@ -80,6 +88,41 @@
 
             {{-- CTA + lang --}}
             <div class="hidden lg:flex items-center gap-2">
+                {{-- More dropdown --}}
+                <div class="relative" x-data="{ moreOpen: false }" @mouseleave="moreOpen = false">
+                    <button @mouseenter="moreOpen = true" @click="moreOpen = !moreOpen"
+                            class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-slate-600 hover:text-green-700 hover:bg-green-50 transition-colors flex items-center gap-1">
+                        {{ $isAr ? 'المزيد' : 'More' }}
+                        <svg class="w-3 h-3 transition-transform" :class="moreOpen ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div x-show="moreOpen"
+                         x-transition:enter="transition ease-out duration-100"
+                         x-transition:enter-start="opacity-0 scale-95"
+                         x-transition:enter-end="opacity-100 scale-100"
+                         x-transition:leave="transition ease-in duration-75"
+                         x-transition:leave-start="opacity-100"
+                         x-transition:leave-end="opacity-0 scale-95"
+                         class="absolute {{ $isAr ? 'left-0' : 'right-0' }} top-full mt-1 w-56 bg-white border border-slate-200 rounded-xl shadow-xl z-50 py-2"
+                         @mouseenter="moreOpen = true" @mouseleave="moreOpen = false">
+                        @foreach($moreLinks as $link)
+                            @php $rn = $isAr ? 'ar.' . $link['route'] : $link['route']; @endphp
+                            <a href="{{ route($rn) }}"
+                               class="flex items-center gap-2.5 px-4 py-2.5 text-sm text-slate-600 hover:text-green-700 hover:bg-green-50 transition-colors">
+                                <span class="text-base">{{ $link['icon'] }}</span>
+                                {{ $link['label'] }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+
+                {{-- My Results CTA --}}
+                <a href="{{ route($isAr ? 'ar.results' : 'results') }}"
+                   class="inline-flex items-center gap-1.5 px-3 py-1.5 border-2 border-green-700 text-green-700 hover:bg-green-700 hover:text-white text-sm font-bold rounded-lg transition-colors whitespace-nowrap">
+                    🔬 {{ __('site.nav.results') }}
+                </a>
+
                 <a href="{{ $altUrl }}"
                    class="text-sm font-semibold text-slate-500 hover:text-green-700 transition-colors border border-slate-200 hover:border-green-300 px-2.5 py-1.5 rounded-lg min-w-[36px] text-center">
                     {{ $altLabel }}
@@ -122,7 +165,21 @@
                     {{ $link['label'] }}
                 </a>
             @endforeach
-            <div class="mt-4 pt-4 border-t border-slate-100 flex items-center gap-3">
+            {{-- More links in mobile --}}
+            <div class="pt-2 border-t border-slate-100">
+                @foreach($moreLinks as $link)
+                    @php $rn = $isAr ? 'ar.' . $link['route'] : $link['route']; @endphp
+                    <a href="{{ route($rn) }}"
+                       class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-semibold text-slate-500 hover:text-green-700 hover:bg-green-50 transition-colors">
+                        <span>{{ $link['icon'] }}</span>{{ $link['label'] }}
+                    </a>
+                @endforeach
+                <a href="{{ route($isAr ? 'ar.results' : 'results') }}"
+                   class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-bold text-green-700 bg-green-50 hover:bg-green-100 transition-colors">
+                    🔬 {{ __('site.nav.results') }}
+                </a>
+            </div>
+            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center gap-3">
                 <a href="{{ $altUrl }}" class="text-sm font-semibold text-slate-500 border border-slate-200 px-3 py-2 rounded-lg hover:border-green-300 hover:text-green-700 transition-colors">{{ $altLabel }}</a>
                 <a href="{{ route($isAr ? 'ar.booking' : 'booking') }}"
                    class="flex-1 text-center px-4 py-2.5 bg-green-700 text-white text-sm font-bold rounded-lg">

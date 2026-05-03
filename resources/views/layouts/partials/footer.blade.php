@@ -10,14 +10,19 @@
     $whatsappUrl  = SiteSetting::get('whatsapp_url', '#');
 
     $footerLinks = [
-        ['route' => 'home',     'label' => __('site.nav.home')],
-        ['route' => 'about',    'label' => __('site.nav.about')],
-        ['route' => 'services', 'label' => __('site.nav.services')],
-        ['route' => 'tests',    'label' => __('site.nav.tests')],
-        ['route' => 'packages', 'label' => __('site.nav.packages')],
-        ['route' => 'branches', 'label' => __('site.nav.branches')],
-        ['route' => 'prepare',  'label' => __('site.nav.prepare')],
-        ['route' => 'contact',  'label' => __('site.nav.contact')],
+        ['route' => 'home',               'label' => __('site.nav.home')],
+        ['route' => 'about',              'label' => __('site.nav.about')],
+        ['route' => 'services',           'label' => __('site.nav.services')],
+        ['route' => 'tests',              'label' => __('site.nav.tests')],
+        ['route' => 'packages',           'label' => __('site.nav.packages')],
+        ['route' => 'branches',           'label' => __('site.nav.branches')],
+        ['route' => 'blog',               'label' => __('site.nav.blog')],
+        ['route' => 'team',               'label' => __('site.nav.team')],
+        ['route' => 'results',            'label' => __('site.nav.results')],
+        ['route' => 'doctor-services',    'label' => __('site.nav.doctor_services')],
+        ['route' => 'corporate-services', 'label' => __('site.nav.corporate_services')],
+        ['route' => 'prepare',            'label' => __('site.nav.prepare')],
+        ['route' => 'contact',            'label' => __('site.nav.contact')],
     ];
 @endphp
 
