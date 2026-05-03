@@ -6,8 +6,12 @@
 @section('content')
 
 {{-- Hero --}}
-<section class="bg-gradient-to-br from-green-900 to-emerald-700 text-white py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section class="relative text-white overflow-hidden">
+    <div class="absolute inset-0"
+         style="background-image: url('https://images.unsplash.com/photo-1579154204601-01588f351e67?w=1920&q=80&auto=format&fit=crop'); background-size: cover; background-position: center;">
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-br from-green-950/92 to-emerald-800/85"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <h1 class="text-4xl font-extrabold mb-3">{{ __('site.tests.title') }}</h1>
         <p class="text-green-100 mb-8">{{ __('site.tests.subtitle') }}</p>
 
