@@ -9,11 +9,11 @@
     if ($isAr) {
         $stripped = ltrim(preg_replace('#^ar/?#', '', $path), '/');
         $altUrl   = $stripped === '' ? '/' : "/{$stripped}";
-        $altLabel = 'English';
+        $altLabel = 'EN';
     } else {
         $stripped = ltrim($path, '/');
         $altUrl   = $stripped === '' || $stripped === '/' ? '/ar' : "/ar/{$stripped}";
-        $altLabel = 'عربي';
+        $altLabel = 'ع';
     }
 
     $navLinks = [
@@ -41,52 +41,52 @@
             <span class="flex items-center gap-4">
                 <span class="flex items-center gap-1.5">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-                    <a href="tel:{{ $hotline }}" class="hover:text-green-200 transition-colors font-semibold">الخط الساخن: {{ $hotline }}</a>
+                    <a href="tel:{{ $hotline }}" class="hover:text-green-200 transition-colors font-semibold">{{ $hotline }}</a>
                 </span>
                 <span class="text-green-300">|</span>
                 <span>{{ $workingHours }}</span>
             </span>
             <span class="flex items-center gap-1.5">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                {{ SiteSetting::get('branches_count', '4') }} فروع في مصر — ISO 15189 معتمد
+                {{ SiteSetting::get('branches_count', '4') }} {{ $isAr ? 'فروع في مصر — ISO 15189 معتمد' : 'Branches in Egypt — ISO 15189 Certified' }}
             </span>
         </div>
     </div>
 
     <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between py-2.5">
+        <div class="flex items-center justify-between py-2">
 
             {{-- Logo --}}
             <a href="{{ route($isAr ? 'ar.home' : 'home') }}" class="flex-shrink-0 flex items-center">
                 <img src="{{ asset('images/logo.png') }}"
                      alt="معامل الشيخة للتحاليل الطبية – El-Sheikha Lab"
-                     class="h-20 w-auto object-contain"
+                     class="h-14 w-auto object-contain"
                      loading="eager">
             </a>
 
             {{-- Desktop nav --}}
-            <div class="hidden lg:flex items-center gap-1">
+            <div class="hidden lg:flex items-center gap-0.5">
                 @foreach($navLinks as $link)
                     @php $routeName = $isAr ? 'ar.' . $link['route'] : $link['route']; @endphp
                     <a href="{{ route($routeName) }}"
-                       class="px-3.5 py-2 rounded-lg text-base font-semibold transition-colors
+                       class="px-2.5 py-1.5 rounded-lg text-sm font-semibold transition-colors whitespace-nowrap
                               {{ request()->routeIs($isAr ? 'ar.' . $link['route'] : $link['route'])
                                   ? 'text-green-700 bg-green-50'
-                                  : 'text-slate-700 hover:text-green-700 hover:bg-green-50' }}">
+                                  : 'text-slate-600 hover:text-green-700 hover:bg-green-50' }}">
                         {{ $link['label'] }}
                     </a>
                 @endforeach
             </div>
 
             {{-- CTA + lang --}}
-            <div class="hidden lg:flex items-center gap-3">
+            <div class="hidden lg:flex items-center gap-2">
                 <a href="{{ $altUrl }}"
-                   class="text-base font-semibold text-slate-500 hover:text-green-700 transition-colors border border-slate-200 hover:border-green-300 px-3 py-2 rounded-lg">
+                   class="text-sm font-semibold text-slate-500 hover:text-green-700 transition-colors border border-slate-200 hover:border-green-300 px-2.5 py-1.5 rounded-lg min-w-[36px] text-center">
                     {{ $altLabel }}
                 </a>
                 <a href="{{ route($isAr ? 'ar.booking' : 'booking') }}"
-                   class="inline-flex items-center gap-2 px-5 py-2.5 bg-green-700 hover:bg-green-800 text-white text-base font-bold rounded-xl transition-colors shadow-sm">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                   class="inline-flex items-center gap-1.5 px-4 py-2 bg-green-700 hover:bg-green-800 text-white text-sm font-bold rounded-lg transition-colors shadow-sm whitespace-nowrap">
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                     {{ __('site.nav.book') }}
                 </a>
             </div>
@@ -125,7 +125,7 @@
             <div class="mt-4 pt-4 border-t border-slate-100 flex items-center gap-3">
                 <a href="{{ $altUrl }}" class="text-sm font-semibold text-slate-500 border border-slate-200 px-3 py-2 rounded-lg hover:border-green-300 hover:text-green-700 transition-colors">{{ $altLabel }}</a>
                 <a href="{{ route($isAr ? 'ar.booking' : 'booking') }}"
-                   class="flex-1 text-center px-4 py-2.5 bg-green-700 text-white text-sm font-bold rounded-xl">
+                   class="flex-1 text-center px-4 py-2.5 bg-green-700 text-white text-sm font-bold rounded-lg">
                     {{ __('site.nav.book') }}
                 </a>
             </div>
