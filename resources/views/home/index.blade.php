@@ -14,6 +14,15 @@
     $totalMilestone = SiteSetting::get('stat_total_analyses_milestone', '+1,000,000');
     $heroSlides     = HeroSlide::active();
     $isAr           = app()->getLocale() === 'ar';
+    $l              = $isAr ? 'ar' : 'en';
+    $sc             = fn ($key, $fb) => SiteSetting::get($key) ?: $fb;
+
+    // DB-overridable section headings
+    $homeCategoriesTitle = $sc("text_home_categories_title_{$l}", __('site.home.categories_title'));
+    $homePackagesTitle   = $sc("text_home_packages_title_{$l}",   __('site.home.packages_title'));
+    $homeWhyTitle        = $sc("text_home_why_title_{$l}",        __('site.home.why_title'));
+    $homeCtaTitle        = $sc("text_home_cta_title_{$l}",        __('site.home.cta_title'));
+    $homeCtaSubtitle     = $sc("text_home_cta_subtitle_{$l}",     __('site.home.cta_subtitle'));
 
     $stats = [
         ['value' => $statTests,    'label' => $isAr ? 'تحليل وباقة' : 'Tests & Packages', 'icon' => '🔬'],
@@ -250,7 +259,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12" data-aos="fade-up">
             <span class="text-xs font-bold text-green-600 uppercase tracking-widest mb-3 block">التحاليل الطبية</span>
-            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">{{ __('site.home.categories_title') }}</h2>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">{{ $homeCategoriesTitle }}</h2>
             <p class="mt-3 text-slate-500 text-lg max-w-xl mx-auto">{{ __('site.home.categories_subtitle') }}</p>
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
@@ -306,7 +315,7 @@
             <div class="px-8 lg:px-16 py-16 flex flex-col justify-center"
                  data-aos="{{ $isAr ? 'fade-right' : 'fade-left' }}">
                 <span class="text-xs font-bold text-green-600 uppercase tracking-widest mb-3 block">لماذا معامل الشيخة؟</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-8">{{ __('site.home.why_title') }}</h2>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-8">{{ $homeWhyTitle }}</h2>
                 <div class="space-y-5">
                     @foreach(__('site.home.why') as $item)
                         <div class="flex items-start gap-4 p-4 rounded-xl hover:bg-green-50 transition-colors">
@@ -340,7 +349,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12" data-aos="fade-up">
             <span class="text-xs font-bold text-green-600 uppercase tracking-widest mb-3 block">باقات مميزة</span>
-            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">{{ __('site.home.packages_title') }}</h2>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">{{ $homePackagesTitle }}</h2>
             <p class="mt-3 text-slate-500 text-lg">{{ __('site.home.packages_subtitle') }}</p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -565,9 +574,9 @@
             🏅 معتمد ISO 15189 — دقة عالية، نتائج موثوقة
         </span>
         <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-5 leading-tight"
-            data-aos="fade-up">{{ __('site.home.cta_title') }}</h2>
+            data-aos="fade-up">{{ $homeCtaTitle }}</h2>
         <p class="text-green-100 mb-10 max-w-xl mx-auto text-lg leading-relaxed"
-           data-aos="fade-up" data-aos-delay="100">{{ __('site.home.cta_subtitle') }}</p>
+           data-aos="fade-up" data-aos-delay="100">{{ $homeCtaSubtitle }}</p>
         <div class="flex flex-wrap justify-center gap-4" data-aos="fade-up" data-aos-delay="200">
             <a href="{{ route(app()->getLocale() === 'ar' ? 'ar.booking' : 'booking') }}"
                class="inline-flex items-center gap-2 px-10 py-4 bg-white text-green-800 font-extrabold rounded-2xl hover:bg-green-50 transition-all shadow-xl hover:-translate-y-0.5 text-base">

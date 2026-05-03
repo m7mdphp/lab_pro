@@ -28,6 +28,43 @@ class SiteImagesPage extends Page
 
     public function form(Form $form): Form
     {
+        // ── Preview thumbnail of current saved image ──────────────────────────
+        $previewField = fn (string $key) =>
+            Forms\Components\Placeholder::make($key . '_preview')
+                ->label('الصورة الحالية')
+                ->content(function () use ($key): \Illuminate\Support\HtmlString {
+                    $value = SiteSetting::get($key);
+
+                    if (!$value) {
+                        return new \Illuminate\Support\HtmlString(
+                            '<div class="flex flex-col items-center justify-center h-28 rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 text-gray-400 gap-1.5">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
+                                <span class="text-xs font-medium text-center px-2">لا توجد صورة — سيتم استخدام الافتراضية</span>
+                            </div>'
+                        );
+                    }
+
+                    $url = str_starts_with($value, 'http')
+                        ? $value
+                        : asset('storage/' . $value);
+
+                    $name = basename(parse_url($url, PHP_URL_PATH));
+
+                    return new \Illuminate\Support\HtmlString(
+                        '<div class="relative rounded-xl overflow-hidden border border-gray-200 shadow-sm">
+                            <img src="' . e($url) . '" class="w-full h-28 object-cover" alt="الصورة الحالية" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-2">
+                                <span class="text-white text-[10px] font-semibold bg-black/40 rounded px-1.5 py-0.5 truncate max-w-full inline-block">' . e($name) . '</span>
+                            </div>
+                        </div>'
+                    );
+                })
+                ->columnSpan(1);
+
+        // ── Upload field ──────────────────────────────────────────────────────
         $uploadField = fn (string $key, string $label, string $helperText = '') =>
             Forms\Components\FileUpload::make($key)
                 ->label($label)
@@ -37,9 +74,8 @@ class SiteImagesPage extends Page
                 ->imageEditor()
                 ->maxSize(5120)
                 ->nullable()
-                ->helperText($helperText ?: 'ارفع صورة من جهازك. أو أدخل رابطاً في الحقل المجاور.')
+                ->helperText($helperText ?: 'ارفع صورة من جهازك (حتى 5 MB).')
                 ->afterStateHydrated(function (Forms\Components\FileUpload $component, $state, mixed $record) use ($key) {
-                    // Don't try to load HTTP URLs as stored files
                     $value = SiteSetting::get($key);
                     if ($value && str_starts_with($value, 'http')) {
                         $component->state(null);
@@ -47,6 +83,7 @@ class SiteImagesPage extends Page
                 })
                 ->columnSpan(1);
 
+        // ── URL field ─────────────────────────────────────────────────────────
         $urlField = fn (string $key, string $label) =>
             Forms\Components\TextInput::make($key . '_url')
                 ->label('أو رابط URL للصورة')
@@ -60,89 +97,39 @@ class SiteImagesPage extends Page
                 })
                 ->columnSpan(1);
 
+        // ── Helper: 3-column section (preview | upload | url) ─────────────────
+        $imgSection = fn (string $key, string $sectionTitle, string $uploadLabel) =>
+            Forms\Components\Section::make($sectionTitle)
+                ->columns(3)
+                ->schema([
+                    $previewField($key),
+                    $uploadField($key, $uploadLabel),
+                    $urlField($key, $uploadLabel),
+                ]);
+
         return $form
             ->schema([
                 Forms\Components\Tabs::make('إدارة الصور')->tabs([
 
                     Forms\Components\Tabs\Tab::make('الصفحة الرئيسية')->icon('heroicon-o-home')->schema([
-                        Forms\Components\Section::make('قسم "لماذا معامل الشيخة"')
-                            ->columns(2)
-                            ->schema([
-                                $uploadField('image_home_why', 'صورة قسم لماذا معامل الشيخة'),
-                                $urlField('image_home_why', 'رابط URL'),
-                            ]),
-                        Forms\Components\Section::make('بانر سحب العينات المنزلي')
-                            ->columns(2)
-                            ->schema([
-                                $uploadField('image_home_collection', 'صورة بانر السحب المنزلي'),
-                                $urlField('image_home_collection', 'رابط URL'),
-                            ]),
+                        $imgSection('image_home_why',        'قسم "لماذا معامل الشيخة"',        'صورة قسم لماذا'),
+                        $imgSection('image_home_collection', 'بانر سحب العينات المنزلي',         'صورة بانر السحب'),
                     ]),
 
                     Forms\Components\Tabs\Tab::make('صفحة عن المعمل')->icon('heroicon-o-building-office')->schema([
-                        Forms\Components\Section::make('هيرو صفحة عن المعمل')
-                            ->columns(2)
-                            ->schema([
-                                $uploadField('image_about_hero', 'صورة هيرو عن المعمل'),
-                                $urlField('image_about_hero', 'رابط URL'),
-                            ]),
-                        Forms\Components\Section::make('بانر التحاليل المنجزة')
-                            ->columns(2)
-                            ->schema([
-                                $uploadField('image_about_banner', 'صورة بانر التحاليل المنجزة'),
-                                $urlField('image_about_banner', 'رابط URL'),
-                            ]),
+                        $imgSection('image_about_hero',   'هيرو صفحة عن المعمل',         'صورة هيرو عن المعمل'),
+                        $imgSection('image_about_banner', 'بانر التحاليل المنجزة',        'صورة بانر التحاليل'),
                     ]),
 
                     Forms\Components\Tabs\Tab::make('باقي الصفحات')->icon('heroicon-o-squares-2x2')->schema([
-                        Forms\Components\Section::make('هيرو الخدمات')
-                            ->columns(2)
-                            ->schema([
-                                $uploadField('image_services_hero', 'هيرو صفحة الخدمات'),
-                                $urlField('image_services_hero', 'رابط URL'),
-                            ]),
-                        Forms\Components\Section::make('هيرو التحاليل')
-                            ->columns(2)
-                            ->schema([
-                                $uploadField('image_tests_hero', 'هيرو صفحة التحاليل'),
-                                $urlField('image_tests_hero', 'رابط URL'),
-                            ]),
-                        Forms\Components\Section::make('هيرو الباقات')
-                            ->columns(2)
-                            ->schema([
-                                $uploadField('image_packages_hero', 'هيرو صفحة الباقات'),
-                                $urlField('image_packages_hero', 'رابط URL'),
-                            ]),
-                        Forms\Components\Section::make('هيرو الفروع')
-                            ->columns(2)
-                            ->schema([
-                                $uploadField('image_branches_hero', 'هيرو صفحة الفروع'),
-                                $urlField('image_branches_hero', 'رابط URL'),
-                            ]),
-                        Forms\Components\Section::make('هيرو التواصل')
-                            ->columns(2)
-                            ->schema([
-                                $uploadField('image_contact_hero', 'هيرو صفحة التواصل'),
-                                $urlField('image_contact_hero', 'رابط URL'),
-                            ]),
-                        Forms\Components\Section::make('هيرو الحجز')
-                            ->columns(2)
-                            ->schema([
-                                $uploadField('image_booking_hero', 'هيرو صفحة الحجز'),
-                                $urlField('image_booking_hero', 'رابط URL'),
-                            ]),
-                        Forms\Components\Section::make('هيرو تحضير التحاليل')
-                            ->columns(2)
-                            ->schema([
-                                $uploadField('image_prepare_hero', 'هيرو صفحة تحضير التحاليل'),
-                                $urlField('image_prepare_hero', 'رابط URL'),
-                            ]),
-                        Forms\Components\Section::make('هيرو الشركاء')
-                            ->columns(2)
-                            ->schema([
-                                $uploadField('image_partners_hero', 'هيرو صفحة الشركاء'),
-                                $urlField('image_partners_hero', 'رابط URL'),
-                            ]),
+                        $imgSection('image_services_hero', 'هيرو الخدمات',                'هيرو صفحة الخدمات'),
+                        $imgSection('image_tests_hero',    'هيرو التحاليل',               'هيرو صفحة التحاليل'),
+                        $imgSection('image_packages_hero', 'هيرو الباقات',                'هيرو صفحة الباقات'),
+                        $imgSection('image_branches_hero', 'هيرو الفروع',                 'هيرو صفحة الفروع'),
+                        $imgSection('image_contact_hero',  'هيرو التواصل',                'هيرو صفحة التواصل'),
+                        $imgSection('image_booking_hero',  'هيرو الحجز',                  'هيرو صفحة الحجز'),
+                        $imgSection('image_prepare_hero',  'هيرو تحضير التحاليل',         'هيرو صفحة التحضير'),
+                        $imgSection('image_partners_hero', 'هيرو الشركاء',                'هيرو صفحة الشركاء'),
                     ]),
 
                 ])->columnSpanFull(),
@@ -154,7 +141,6 @@ class SiteImagesPage extends Page
     {
         $state = $this->form->getState();
 
-        // Image keys managed by this page
         $imageKeys = [
             'image_home_why',
             'image_home_collection',
@@ -171,7 +157,6 @@ class SiteImagesPage extends Page
         ];
 
         foreach ($imageKeys as $key) {
-            // Check URL override field first
             $urlOverride = $state[$key . '_url'] ?? null;
             $fileValue   = $state[$key] ?? null;
 
@@ -183,7 +168,6 @@ class SiteImagesPage extends Page
                     SiteSetting::set($key, $path, 'images');
                 }
             }
-            // If both are empty/null, keep existing value (no overwrite)
         }
 
         SiteSetting::clearCache();

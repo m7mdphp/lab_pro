@@ -1,6 +1,11 @@
 @extends('layouts.app')
-@section('title', __('site.branches.title'))
-@section('description', __('site.branches.subtitle'))
+@php
+    $__l          = app()->getLocale() === 'ar' ? 'ar' : 'en';
+    $pageTitle    = \App\Models\SiteSetting::get("text_branches_title_{$__l}") ?: __('site.branches.title');
+    $pageSubtitle = \App\Models\SiteSetting::get("text_branches_subtitle_{$__l}") ?: __('site.branches.subtitle');
+@endphp
+@section('title', $pageTitle)
+@section('description', $pageSubtitle)
 
 @section('content')
 @php
@@ -22,8 +27,8 @@
             <span class="w-2 h-2 rounded-full bg-emerald-400 flex-shrink-0"></span>
             {{ $isAr ? 'أقرب فرع إليك' : 'Find Your Nearest Branch' }}
         </div>
-        <h1 class="page-hero-title text-4xl md:text-5xl font-extrabold mb-4 leading-tight">{{ __('site.branches.title') }}</h1>
-        <p class="page-hero-subtitle text-green-100/85 text-lg max-w-2xl mx-auto leading-relaxed">{{ __('site.branches.subtitle') }}</p>
+        <h1 class="page-hero-title text-4xl md:text-5xl font-extrabold mb-4 leading-tight">{{ $pageTitle }}</h1>
+        <p class="page-hero-subtitle text-green-100/85 text-lg max-w-2xl mx-auto leading-relaxed">{{ $pageSubtitle }}</p>
     </div>
 </section>
 

@@ -35,7 +35,7 @@
                          class="h-20 w-auto object-contain bg-white rounded-xl p-2">
                 </a>
                 <p class="text-sm text-slate-400 leading-relaxed mb-5">
-                    {{ __('site.footer.tagline') }}
+                    {{ SiteSetting::get('text_footer_tagline_' . ($isAr ? 'ar' : 'en')) ?: __('site.footer.tagline') }}
                 </p>
                 {{-- Certifications --}}
                 <div class="flex flex-wrap gap-2">

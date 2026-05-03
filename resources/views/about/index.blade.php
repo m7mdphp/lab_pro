@@ -1,7 +1,11 @@
 @extends('layouts.app')
-
-@section('title', __('site.about.title'))
-@section('description', __('site.about.subtitle'))
+@php
+    $__l          = app()->getLocale() === 'ar' ? 'ar' : 'en';
+    $pageTitle    = \App\Models\SiteSetting::get("text_about_title_{$__l}") ?: __('site.about.title');
+    $pageSubtitle = \App\Models\SiteSetting::get("text_about_subtitle_{$__l}") ?: __('site.about.subtitle');
+@endphp
+@section('title', $pageTitle)
+@section('description', $pageSubtitle)
 
 @section('content')
 @php
@@ -21,6 +25,17 @@
         ? (str_starts_with($aboutBannerImage, 'http') ? $aboutBannerImage : asset('storage/' . $aboutBannerImage))
         : 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1920&q=80&auto=format&fit=crop';
     $isAr = app()->getLocale() === 'ar';
+    $l    = $isAr ? 'ar' : 'en';
+    $sc   = fn ($key, $fb) => SiteSetting::get($key) ?: $fb;
+    // DB-overridable content
+    $missionTitle  = $sc("text_about_mission_title_{$l}",    __('site.about.mission_title'));
+    $missionText   = $sc("text_about_mission_{$l}",          __('site.about.mission'));
+    $visionTitle   = $sc("text_about_vision_title_{$l}",     __('site.about.vision_title'));
+    $visionText    = $sc("text_about_vision_{$l}",           __('site.about.vision'));
+    $whyTitle      = $sc("text_about_why_title_{$l}",        __('site.about.why_title'));
+    $whySubtitle   = $sc("text_about_why_subtitle_{$l}",     __('site.about.why_subtitle'));
+    $brandedTitle  = $sc("text_about_branded_title_{$l}",    __('site.about.branded_title'));
+    $brandedSub    = $sc("text_about_branded_subtitle_{$l}", __('site.about.branded_subtitle'));
 @endphp
 
 {{-- Hero --}}
@@ -36,8 +51,8 @@
                     <span class="w-2 h-2 rounded-full bg-emerald-400 flex-shrink-0"></span>
                     🔬 {{ $isAr ? 'في خدمة مرضانا منذ' : 'Serving patients since' }} {{ $foundedYear }}
                 </div>
-                <h1 class="page-hero-title text-4xl md:text-5xl font-extrabold leading-tight mb-5">{{ __('site.about.title') }}</h1>
-                <p class="page-hero-subtitle text-green-100/85 text-lg leading-relaxed">{{ __('site.about.subtitle') }}</p>
+                <h1 class="page-hero-title text-4xl md:text-5xl font-extrabold leading-tight mb-5">{{ $pageTitle }}</h1>
+                <p class="page-hero-subtitle text-green-100/85 text-lg leading-relaxed">{{ $pageSubtitle }}</p>
             </div>
             <div class="page-hero-extra grid grid-cols-2 gap-4">
                 @foreach([
@@ -63,14 +78,14 @@
             <div class="bg-green-50 rounded-2xl p-8 border border-green-100 hover:shadow-md transition-shadow"
                  data-aos="fade-up">
                 <div class="w-14 h-14 rounded-2xl bg-green-700 text-white flex items-center justify-center mb-6 text-2xl shadow-lg">🎯</div>
-                <h2 class="text-2xl font-extrabold text-slate-900 mb-4">{{ __('site.about.mission_title') }}</h2>
-                <p class="text-slate-600 leading-relaxed text-base">{{ __('site.about.mission') }}</p>
+                <h2 class="text-2xl font-extrabold text-slate-900 mb-4">{{ $missionTitle }}</h2>
+                <p class="text-slate-600 leading-relaxed text-base">{{ $missionText }}</p>
             </div>
             <div class="bg-emerald-50 rounded-2xl p-8 border border-emerald-100 hover:shadow-md transition-shadow"
                  data-aos="fade-up" data-aos-delay="150">
                 <div class="w-14 h-14 rounded-2xl bg-emerald-700 text-white flex items-center justify-center mb-6 text-2xl shadow-lg">🔭</div>
-                <h2 class="text-2xl font-extrabold text-slate-900 mb-4">{{ __('site.about.vision_title') }}</h2>
-                <p class="text-slate-600 leading-relaxed text-base">{{ __('site.about.vision') }}</p>
+                <h2 class="text-2xl font-extrabold text-slate-900 mb-4">{{ $visionTitle }}</h2>
+                <p class="text-slate-600 leading-relaxed text-base">{{ $visionText }}</p>
             </div>
         </div>
     </div>
@@ -113,8 +128,8 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
                 <span class="text-xs font-bold text-green-600 uppercase tracking-widest mb-3 block" data-aos="fade-up">{{ $isAr ? 'تميّزنا' : 'Our Distinction' }}</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-8" data-aos="fade-up" data-aos-delay="80">{{ __('site.about.why_title') }}</h2>
-                <p class="text-slate-500 mb-8 text-base leading-relaxed" data-aos="fade-up" data-aos-delay="120">{{ __('site.about.why_subtitle') }}</p>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-8" data-aos="fade-up" data-aos-delay="80">{{ $whyTitle }}</h2>
+                <p class="text-slate-500 mb-8 text-base leading-relaxed" data-aos="fade-up" data-aos-delay="120">{{ $whySubtitle }}</p>
                 <div class="space-y-5">
                     @foreach(__('site.about.why') as $i => $item)
                         <div class="flex gap-5 p-5 bg-slate-50 rounded-2xl border border-slate-200 hover:border-green-200 hover:shadow-sm transition-all"
@@ -157,8 +172,8 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12" data-aos="fade-up">
             <span class="text-xs font-bold text-green-600 uppercase tracking-widest mb-3 block">{{ $isAr ? 'برامجنا المتخصصة' : 'Our Specialized Programs' }}</span>
-            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">{{ __('site.about.branded_title') }}</h2>
-            <p class="text-slate-500 mt-3 text-lg max-w-2xl mx-auto">{{ __('site.about.branded_subtitle') }}</p>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">{{ $brandedTitle }}</h2>
+            <p class="text-slate-500 mt-3 text-lg max-w-2xl mx-auto">{{ $brandedSub }}</p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach(__('site.about.branded') as $i => $pkg)

@@ -1,6 +1,11 @@
 @extends('layouts.app')
-@section('title', __('site.services.title'))
-@section('description', __('site.services.subtitle'))
+@php
+    $__l          = app()->getLocale() === 'ar' ? 'ar' : 'en';
+    $pageTitle    = \App\Models\SiteSetting::get("text_services_title_{$__l}") ?: __('site.services.title');
+    $pageSubtitle = \App\Models\SiteSetting::get("text_services_subtitle_{$__l}") ?: __('site.services.subtitle');
+@endphp
+@section('title', $pageTitle)
+@section('description', $pageSubtitle)
 
 @section('content')
 @php
@@ -22,8 +27,8 @@
             <span class="w-2 h-2 rounded-full bg-emerald-400 flex-shrink-0"></span>
             {{ $isAr ? 'خدماتنا الطبية المتكاملة' : 'Our Integrated Medical Services' }}
         </div>
-        <h1 class="page-hero-title text-4xl md:text-5xl font-extrabold mb-4 leading-tight">{{ __('site.services.title') }}</h1>
-        <p class="page-hero-subtitle text-green-100/85 text-lg max-w-2xl mx-auto leading-relaxed">{{ __('site.services.subtitle') }}</p>
+        <h1 class="page-hero-title text-4xl md:text-5xl font-extrabold mb-4 leading-tight">{{ $pageTitle }}</h1>
+        <p class="page-hero-subtitle text-green-100/85 text-lg max-w-2xl mx-auto leading-relaxed">{{ $pageSubtitle }}</p>
     </div>
 </section>
 
@@ -33,7 +38,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12" data-aos="fade-up">
             <span class="text-xs font-bold text-green-600 uppercase tracking-widest mb-3 block">{{ $isAr ? 'ما نقدمه' : 'What We Offer' }}</span>
-            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">{{ __('site.services.title') }}</h2>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">{{ $pageTitle }}</h2>
         </div>
         @php
             $colorMap = [

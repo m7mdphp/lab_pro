@@ -1,6 +1,11 @@
 @extends('layouts.app')
-@section('title', __('site.tests.title'))
-@section('description', __('site.tests.subtitle'))
+@php
+    $__l          = app()->getLocale() === 'ar' ? 'ar' : 'en';
+    $pageTitle    = \App\Models\SiteSetting::get("text_tests_title_{$__l}") ?: __('site.tests.title');
+    $pageSubtitle = \App\Models\SiteSetting::get("text_tests_subtitle_{$__l}") ?: __('site.tests.subtitle');
+@endphp
+@section('title', $pageTitle)
+@section('description', $pageSubtitle)
 
 @section('content')
 @php
@@ -22,8 +27,8 @@
             <span class="w-2 h-2 rounded-full bg-emerald-400 flex-shrink-0"></span>
             {{ $isAr ? 'أكثر من 300 تحليل طبي' : '300+ Medical Tests Available' }}
         </div>
-        <h1 class="page-hero-title text-4xl font-extrabold mb-3 leading-tight">{{ __('site.tests.title') }}</h1>
-        <p class="page-hero-subtitle text-green-100/85 mb-6 max-w-xl leading-relaxed">{{ __('site.tests.subtitle') }}</p>
+        <h1 class="page-hero-title text-4xl font-extrabold mb-3 leading-tight">{{ $pageTitle }}</h1>
+        <p class="page-hero-subtitle text-green-100/85 mb-6 max-w-xl leading-relaxed">{{ $pageSubtitle }}</p>
         {{-- Search --}}
         <form method="GET" class="page-hero-extra flex gap-3 max-w-xl">
             <div class="relative flex-1">
