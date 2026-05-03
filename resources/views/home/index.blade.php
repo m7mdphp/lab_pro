@@ -5,23 +5,49 @@
 @section('content')
 @php
     use App\Models\SiteSetting;
-    $statTests    = SiteSetting::get('stat_tests_count', '300+');
-    $statBranches = SiteSetting::get('branches_count', '4');
-    $statDone     = SiteSetting::get('stat_analyses_done', '1M+');
-    $statTime     = SiteSetting::get('stat_avg_time', '24 h');
-    $hotline      = SiteSetting::get('hotline', '19XXX');
+    use App\Models\HeroSlide;
+    $statTests      = SiteSetting::get('stat_tests_count', '300+');
+    $statBranches   = SiteSetting::get('branches_count', '4');
+    $statDone       = SiteSetting::get('stat_analyses_done', '1M+');
+    $statTime       = SiteSetting::get('stat_avg_time', '24 h');
+    $hotline        = SiteSetting::get('hotline', '19XXX');
     $totalMilestone = SiteSetting::get('stat_total_analyses_milestone', '+1,000,000');
+    $heroSlides     = HeroSlide::active();
+    $isAr           = app()->getLocale() === 'ar';
 @endphp
 
-{{-- ── Hero ─────────────────────────────────────────────────────────────── --}}
-<section class="relative text-white overflow-hidden" style="min-height: 600px;">
-    {{-- Background image --}}
-    <div class="absolute inset-0"
-         style="background-image: url('https://images.unsplash.com/photo-1579154204601-01588f351e67?w=1920&q=80&auto=format&fit=crop'); background-size: cover; background-position: center;">
+{{-- ── Hero Slider ─────────────────────────────────────────────────────── --}}
+@if($heroSlides->isNotEmpty())
+<section class="relative text-white overflow-hidden" style="min-height: 600px;"
+    x-data="{
+        current: 0,
+        total: {{ $heroSlides->count() }},
+        timer: null,
+        next() { this.current = (this.current + 1) % this.total; this.resetTimer(); },
+        prev() { this.current = (this.current - 1 + this.total) % this.total; this.resetTimer(); },
+        resetTimer() { clearInterval(this.timer); this.timer = setInterval(() => this.next(), 6000); }
+    }"
+    x-init="timer = setInterval(() => next(), 6000)"
+>
+    {{-- Slide backgrounds --}}
+    @foreach($heroSlides as $i => $slide)
+    <div x-show="current === {{ $i }}"
+         x-transition:enter="transition ease-out duration-700"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-300"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="absolute inset-0"
+         style="min-height: 600px;">
+        <div class="absolute inset-0"
+             style="background-image: url('{{ $slide->image_url }}'); background-size: cover; background-position: center;">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-br from-green-950/90 via-green-900/85 to-emerald-800/80"></div>
     </div>
-    {{-- Gradient overlay --}}
-    <div class="absolute inset-0 bg-gradient-to-br from-green-950/90 via-green-900/85 to-emerald-800/80"></div>
+    @endforeach
 
+    {{-- Content --}}
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 md:py-36">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -29,24 +55,36 @@
                     <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
                     🏅 ISO 15189 Certified — معتمد دولياً
                 </span>
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 tracking-tight">
-                    {!! __('site.home.hero_title') !!}
-                </h1>
-                <p class="text-lg md:text-xl text-green-100 leading-relaxed mb-10 max-w-xl">
-                    {{ __('site.home.hero_subtitle') }}
-                </p>
-                <div class="flex flex-wrap gap-4">
-                    <a href="{{ route(app()->getLocale() === 'ar' ? 'ar.booking' : 'booking') }}"
-                       class="inline-flex items-center gap-2.5 px-8 py-4 bg-white text-green-800 font-extrabold rounded-2xl hover:bg-green-50 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-0.5 text-base">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                        {{ __('site.home.hero_cta') }}
-                    </a>
-                    <a href="{{ route(app()->getLocale() === 'ar' ? 'ar.tests' : 'tests') }}"
-                       class="inline-flex items-center gap-2 px-8 py-4 bg-white/10 border-2 border-white/40 text-white font-bold rounded-2xl hover:bg-white/20 transition-all backdrop-blur-sm text-base">
-                        {{ __('site.home.hero_cta_alt') }}
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                    </a>
+
+                {{-- Per-slide text --}}
+                @foreach($heroSlides as $i => $slide)
+                <div x-show="current === {{ $i }}"
+                     x-transition:enter="transition ease-out duration-500 delay-100"
+                     x-transition:enter-start="opacity-0 translate-y-4"
+                     x-transition:enter-end="opacity-100 translate-y-0"
+                     x-transition:leave="transition ease-in duration-200"
+                     x-transition:leave-start="opacity-100"
+                     x-transition:leave-end="opacity-0">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 tracking-tight">
+                        {!! $isAr ? ($slide->title_ar ?: $slide->title_en) : ($slide->title_en ?: $slide->title_ar) !!}
+                    </h1>
+                    <p class="text-lg md:text-xl text-green-100 leading-relaxed mb-10 max-w-xl">
+                        {{ $isAr ? ($slide->subtitle_ar ?: $slide->subtitle_en) : ($slide->subtitle_en ?: $slide->subtitle_ar) }}
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="{{ $slide->button_url ?: '/booking' }}"
+                           class="inline-flex items-center gap-2.5 px-8 py-4 bg-white text-green-800 font-extrabold rounded-2xl hover:bg-green-50 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-0.5 text-base">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            {{ $isAr ? ($slide->button_text_ar ?: 'احجز الآن') : ($slide->button_text_en ?: 'Book Now') }}
+                        </a>
+                        <a href="{{ route($isAr ? 'ar.tests' : 'tests') }}"
+                           class="inline-flex items-center gap-2 px-8 py-4 bg-white/10 border-2 border-white/40 text-white font-bold rounded-2xl hover:bg-white/20 transition-all backdrop-blur-sm text-base">
+                            {{ __('site.home.hero_cta_alt') }}
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
                 </div>
+                @endforeach
 
                 {{-- Trust indicators --}}
                 <div class="flex flex-wrap items-center gap-5 mt-10 pt-8 border-t border-white/20">
@@ -81,8 +119,84 @@
                 @endforeach
             </div>
         </div>
+
+        {{-- Slider controls --}}
+        @if($heroSlides->count() > 1)
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-4">
+            <button @click="prev()"
+                    class="w-9 h-9 rounded-full bg-white/15 hover:bg-white/30 border border-white/30 flex items-center justify-center transition-all backdrop-blur-sm">
+                <svg class="w-4 h-4 text-white {{ $isAr ? '' : 'rotate-180' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </button>
+            <div class="flex items-center gap-2">
+                @foreach($heroSlides as $i => $slide)
+                <button @click="current = {{ $i }}; resetTimer()"
+                        :class="current === {{ $i }} ? 'w-6 bg-white' : 'w-2 bg-white/50'"
+                        class="h-2 rounded-full transition-all duration-300"></button>
+                @endforeach
+            </div>
+            <button @click="next()"
+                    class="w-9 h-9 rounded-full bg-white/15 hover:bg-white/30 border border-white/30 flex items-center justify-center transition-all backdrop-blur-sm">
+                <svg class="w-4 h-4 text-white {{ $isAr ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </button>
+        </div>
+        @endif
     </div>
 </section>
+@else
+{{-- Fallback: no slides in DB --}}
+<section class="relative text-white overflow-hidden" style="min-height: 600px;">
+    <div class="absolute inset-0"
+         style="background-image: url('https://images.unsplash.com/photo-1579154204601-01588f351e67?w=1920&q=80&auto=format&fit=crop'); background-size: cover; background-position: center;">
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-br from-green-950/90 via-green-900/85 to-emerald-800/80"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 md:py-36">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <span class="inline-flex items-center gap-2 bg-white/15 border border-white/25 text-white text-xs font-bold px-4 py-1.5 rounded-full mb-6 backdrop-blur-sm">
+                    <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                    🏅 ISO 15189 Certified — معتمد دولياً
+                </span>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 tracking-tight">
+                    {!! __('site.home.hero_title') !!}
+                </h1>
+                <p class="text-lg md:text-xl text-green-100 leading-relaxed mb-10 max-w-xl">
+                    {{ __('site.home.hero_subtitle') }}
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="{{ route($isAr ? 'ar.booking' : 'booking') }}"
+                       class="inline-flex items-center gap-2.5 px-8 py-4 bg-white text-green-800 font-extrabold rounded-2xl hover:bg-green-50 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-0.5 text-base">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        {{ __('site.home.hero_cta') }}
+                    </a>
+                    <a href="{{ route($isAr ? 'ar.tests' : 'tests') }}"
+                       class="inline-flex items-center gap-2 px-8 py-4 bg-white/10 border-2 border-white/40 text-white font-bold rounded-2xl hover:bg-white/20 transition-all backdrop-blur-sm text-base">
+                        {{ __('site.home.hero_cta_alt') }}
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="hidden lg:grid grid-cols-2 gap-4">
+                @foreach([
+                    ['value' => $statTests,    'label' => 'تحليل وباقة', 'icon' => '🔬'],
+                    ['value' => $statBranches, 'label' => 'فروع', 'icon' => '📍'],
+                    ['value' => $statDone,     'label' => 'تحليل مُنجز', 'icon' => '✅'],
+                    ['value' => $statTime,     'label' => 'متوسط الإنجاز', 'icon' => '⚡'],
+                ] as $stat)
+                    <div class="bg-white/10 border border-white/20 rounded-2xl p-6 text-center backdrop-blur-sm hover:bg-white/15 transition-colors">
+                        <div class="text-3xl mb-2">{{ $stat['icon'] }}</div>
+                        <div class="text-3xl font-extrabold text-white mb-1">{{ $stat['value'] }}</div>
+                        <div class="text-sm text-green-200 font-medium">{{ $stat['label'] }}</div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</section>
+@endif
 
 {{-- ── Test Categories ──────────────────────────────────────────────────── --}}
 @if($categories->isNotEmpty())
@@ -120,12 +234,18 @@
 @endif
 
 {{-- ── Why El-Sheikha Lab — Image split ────────────────────────────────── --}}
+@php
+    $whyImage = SiteSetting::get('image_home_why');
+    $whyImageUrl = $whyImage
+        ? (str_starts_with($whyImage, 'http') ? $whyImage : asset('storage/' . $whyImage))
+        : 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=900&q=85&auto=format&fit=crop';
+@endphp
 <section class="py-0 bg-white overflow-hidden">
     <div class="max-w-7xl mx-auto">
         <div class="grid grid-cols-1 lg:grid-cols-2 items-stretch">
             {{-- Image side --}}
             <div class="relative h-80 lg:h-auto min-h-96"
-                 style="background-image: url('https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=900&q=85&auto=format&fit=crop'); background-size: cover; background-position: center;">
+                 style="background-image: url('{{ $whyImageUrl }}'); background-size: cover; background-position: center;">
                 <div class="absolute inset-0 bg-green-900/30"></div>
                 <div class="absolute bottom-6 left-6 right-6">
                     <div class="inline-flex items-center gap-2 bg-white/90 backdrop-blur-sm rounded-xl px-4 py-2 text-sm font-bold text-green-800 shadow-lg">
@@ -216,7 +336,13 @@
 @endif
 
 {{-- ── Home Sample Collection Banner ───────────────────────────────────── --}}
-<section class="relative py-20 overflow-hidden" style="background-image: url('https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=1600&q=80&auto=format&fit=crop'); background-size: cover; background-position: center top;">
+@php
+    $collectionImage = SiteSetting::get('image_home_collection');
+    $collectionImageUrl = $collectionImage
+        ? (str_starts_with($collectionImage, 'http') ? $collectionImage : asset('storage/' . $collectionImage))
+        : 'https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=1600&q=80&auto=format&fit=crop';
+@endphp
+<section class="relative py-20 overflow-hidden" style="background-image: url('{{ $collectionImageUrl }}'); background-size: cover; background-position: center top;">
     <div class="absolute inset-0 bg-green-950/85"></div>
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">

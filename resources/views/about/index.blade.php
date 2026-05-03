@@ -13,11 +13,17 @@
 @endphp
 
 @section('content')
+@php
+    $aboutHeroImage = SiteSetting::get('image_about_hero');
+    $aboutHeroUrl = $aboutHeroImage
+        ? (str_starts_with($aboutHeroImage, 'http') ? $aboutHeroImage : asset('storage/' . $aboutHeroImage))
+        : 'https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?w=1920&q=80&auto=format&fit=crop';
+@endphp
 
 {{-- Hero with background image --}}
 <section class="relative text-white overflow-hidden" style="min-height: 480px;">
     <div class="absolute inset-0"
-         style="background-image: url('https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?w=1920&q=80&auto=format&fit=crop'); background-size: cover; background-position: center;">
+         style="background-image: url('{{ $aboutHeroUrl }}'); background-size: cover; background-position: center;">
     </div>
     <div class="absolute inset-0 bg-gradient-to-br from-green-950/92 via-green-900/88 to-emerald-800/80"></div>
 
@@ -66,8 +72,14 @@
 </section>
 
 {{-- Lab image full-width banner --}}
+@php
+    $aboutBannerImage = SiteSetting::get('image_about_banner');
+    $aboutBannerUrl = $aboutBannerImage
+        ? (str_starts_with($aboutBannerImage, 'http') ? $aboutBannerImage : asset('storage/' . $aboutBannerImage))
+        : 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1920&q=80&auto=format&fit=crop';
+@endphp
 <div class="relative h-72 md:h-96 overflow-hidden"
-     style="background-image: url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1920&q=80&auto=format&fit=crop'); background-size: cover; background-position: center 30%;">
+     style="background-image: url('{{ $aboutBannerUrl }}'); background-size: cover; background-position: center 30%;">
     <div class="absolute inset-0 bg-green-900/50 flex items-center justify-center">
         <div class="text-center text-white">
             <div class="text-5xl font-extrabold mb-2">{{ $totalMilestone }}</div>

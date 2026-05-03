@@ -4,11 +4,18 @@
 @section('description', __('site.partners.subtitle'))
 
 @section('content')
+@php
+    use App\Models\SiteSetting;
+    $partnersHeroImage = SiteSetting::get('image_partners_hero');
+    $partnersHeroUrl = $partnersHeroImage
+        ? (str_starts_with($partnersHeroImage, 'http') ? $partnersHeroImage : asset('storage/' . $partnersHeroImage))
+        : 'https://images.unsplash.com/photo-1512678080530-7760d81faba6?w=1920&q=80&auto=format&fit=crop';
+@endphp
 
 {{-- Hero --}}
 <section class="relative text-white overflow-hidden" style="min-height: 360px;">
     <div class="absolute inset-0"
-         style="background-image: url('https://images.unsplash.com/photo-1512678080530-7760d81faba6?w=1920&q=80&auto=format&fit=crop'); background-size: cover; background-position: center;">
+         style="background-image: url('{{ $partnersHeroUrl }}'); background-size: cover; background-position: center;">
     </div>
     <div class="absolute inset-0 bg-gradient-to-br from-green-950/92 to-emerald-800/85"></div>
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
